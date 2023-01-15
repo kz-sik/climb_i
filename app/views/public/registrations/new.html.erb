@@ -1,15 +1,31 @@
 <h2>Sign up</h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "publics/shared/error_messages", resource: resource %>
+  <%= render "public/shared/error_messages", resource: resource %>
+
 
   <div class="field">
-    <%= f.label :email %><br />
+    <%= f.label :name, "ニックネーム" %><br />
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :sex, "性別" %><br />
+    <%= f.select :sex,[['男性', '男性'], ['女性', '女性']], { include_blank: true} %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :height, "身長" %><br />
+    <%= f.number_field :height %>cm
+  </div>
+
+  <div class="field">
+    <%= f.label :email, "メールアドレス" %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
 
   <div class="field">
-    <%= f.label :password %>
+    <%= f.label :password, "パスワード" %>
     <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>
     <% end %><br />
@@ -17,7 +33,7 @@
   </div>
 
   <div class="field">
-    <%= f.label :password_confirmation %><br />
+    <%= f.label :password_confirmation, "パスワード（確認用）" %><br />
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
   </div>
 
