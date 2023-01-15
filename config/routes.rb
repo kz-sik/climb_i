@@ -1,50 +1,29 @@
 Rails.application.routes.draw do
+  scope module: :public do
+    root to: 'homes#top'
+    get '/about' => 'homes#about', as: 'about'
+    get '/users/my_page' => 'users#show'
+    get '/users/information/edit' => 'users#edit'
+    patch '/users/information' => 'users#update'
+    get '/users/unsubscribe' => 'users#unsubscribe'
+    patch '/users/withdraw' => 'users#withdraw'
+    resources :users do
+      resource :relationships, only: [:create, :destroy]
+      get 'followings' => 'relationships#followings', as: 'followings'
+      get 'followers' => 'relationships#followers', as: 'followers'
+    end
+    resources :items, only: [:new, :index, :show, :create, :edit, :update]
+    resources :genres, only: [:index, :create, :edit, :update]
+    resources :makers, only: [:index, :create, :edit, :update]
+    resources :reviews
+    resources :bookmarks, only: [:index, :create, :destroy]
+  end
+  namespace :public do
+    get 'relationships/followings'
+    get 'relationships/followers'
+  end
   namespace :admin do
     get 'homes/top'
-  end
-  namespace :public do
-    get 'bookmarks/index'
-    get 'bookmarks/create'
-    get 'bookmarks/destroy'
-  end
-  namespace :public do
-    get 'reviews/index'
-    get 'reviews/new'
-    get 'reviews/create'
-    get 'reviews/show'
-    get 'reviews/edit'
-    get 'reviews/update'
-    get 'reviews/destroy'
-  end
-  namespace :public do
-    get 'makers/index'
-    get 'makers/create'
-    get 'makers/edit'
-    get 'makers/update'
-  end
-  namespace :public do
-    get 'genres/index'
-    get 'genres/create'
-    get 'genres/edit'
-    get 'genres/update'
-  end
-  namespace :public do
-    get 'users/show'
-    get 'users/edit'
-    get 'users/update'
-    get 'users/unsubscribe'
-  end
-  namespace :public do
-    get 'items/index'
-    get 'items/show'
-    get 'items/new'
-    get 'items/create'
-    get 'items/edit'
-    get 'items/update'
-  end
-  namespace :public do
-    get 'homes/top'
-    get 'homes/about'
   end
   #管理者
   devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
