@@ -18,10 +18,6 @@ Rails.application.routes.draw do
     resources :reviews
     resources :bookmarks, only: [:index, :create, :destroy]
   end
-  namespace :public do
-    get 'relationships/followings'
-    get 'relationships/followers'
-  end
   namespace :admin do
     get 'homes/top'
   end
