@@ -1,2 +1,6 @@
-<h1>Public::Makers#edit</h1>
-<p>Find me in app/views/public/makers/edit.html.erb</p>
+<h1>メーカー編集</h1>
+<%= form_with model: @maker, url: maker_path, method: :patch do |f| %>
+  <%= f.label :name, "メーカー名" %>
+  <%= f.text_field :name %>
+  <%= f.submit "変更を保存", class: "btn btn-success" %>
+<% end %>
