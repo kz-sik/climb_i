@@ -16,12 +16,19 @@
     </tr>
     <tr>
       <td><%= f.label :genre_id, "ジャンル" %></td>
-      <td><%= f.text_field :genre_id %></td>
+      <td><%= f.collection_select :genre_id, @genres, :id, :name, include_blank: "選択して下さい" %></td>
     </tr>
     <tr>
       <td><%= f.label :maker_id, "メーカー" %></td>
-      <td><%= f.text_field :maker_id %></td>
+      <td><%= f.collection_select :maker_id, @makers, :id, :name, include_blank: "選択して下さい" %></td>
+    </tr>
+    <tr>
+      <td><%= f.submit "新規登録", class: "btn btn-success" %></td>
     </tr>
   </tbody>
 </table>
 <% end %>
+
+<div>
+  
+</div>

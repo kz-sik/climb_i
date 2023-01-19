@@ -1,10 +1,13 @@
 class Public::ItemsController < ApplicationController
   def new
     @item = Item.new
+    @genres = Genre.all
+    @makers = Maker.all
   end
 
   def create
     @item = Item.new(item_params)
+    @review = Review.new
   end
 
   def index
@@ -18,9 +21,9 @@ class Public::ItemsController < ApplicationController
 
   def update
   end
-  
+
   private
-  
+
   def item_params
     params.require(:item).permit(:genre_id, :maker_id, :name, :introduction, :image)
   end
