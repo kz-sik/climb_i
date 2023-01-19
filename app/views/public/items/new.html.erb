@@ -1,2 +1,27 @@
-<h1>Public::Items#new</h1>
-<p>Find me in app/views/public/items/new.html.erb</p>
+<h1>新規アイテム登録</h1>
+<%= form_with model: @item,url: items_path, method: :post do |f| %>
+<table>
+  <tbody>
+    <tr>
+      <td><%= f.label :name, "アイテム名" %></td>
+      <td><%= f.text_field :name %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :image, "アイテム画像" %></td>
+      <td><%= f.file_field :image, accept: "image/*" %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :introduction, "アイテム説明文" %></td>
+      <td><%= f.text_field :introduction %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :genre_id, "ジャンル" %></td>
+      <td><%= f.text_field :genre_id %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :maker_id, "メーカー" %></td>
+      <td><%= f.text_field :maker_id %></td>
+    </tr>
+  </tbody>
+</table>
+<% end %>
