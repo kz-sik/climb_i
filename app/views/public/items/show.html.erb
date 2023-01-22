@@ -1,2 +1,8 @@
-<h1>Public::Items#show</h1>
-<p>Find me in app/views/public/items/show.html.erb</p>
+<h1>アイテム詳細</h1>
+<%= image_tag @item.image %>
+<%= @item.name %>
+<%= @item.maker.name %>
+<%= @item.genre.name %>
+<%= @item.tags.map(&:name).join(', ') %>
+<%= @item.introduction %>
+<h2>レビュー一覧</h2>

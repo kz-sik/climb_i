@@ -12,7 +12,7 @@
     </tr>
     <tr>
       <td><%= f.label :introduction, "アイテム説明文" %></td>
-      <td><%= f.text_field :introduction %></td>
+      <td><%= f.text_area :introduction %></td>
     </tr>
     <tr>
       <td><%= f.label :genre_id, "ジャンル" %></td>
@@ -23,12 +23,25 @@
       <td><%= f.collection_select :maker_id, @makers, :id, :name, include_blank: "選択して下さい" %></td>
     </tr>
     <tr>
-      <td><%= f.submit "新規登録", class: "btn btn-success" %></td>
+      <%= f.fields_for :tags do |ff| %>
+      <td><%= ff.label :name, "タグ (,で区切ると複数タグ登録できます)" %></td>
+      <td><%= ff.text_area :name %></td>
+      <% end %>
+    </tr>
+    <%= f.fields_for :reviews do |ff| %>
+    <%#= ff.hidden_field :user_id, value: current_user.id %>
+    <tr>
+      <td><%= ff.label :star, "星評価" %></td>
+      <td><%= ff.text_area :star %></td>
+    </tr>
+    <tr>
+      <td><%= ff.label :comment, "コメント" %></td>
+      <td><%= ff.text_area :comment %></td>
+    </tr>
+    <% end %>
+    <tr>
+      <td><%= f.submit "投稿する", class: "btn btn-success" %></td>
     </tr>
   </tbody>
 </table>
 <% end %>
-
-<div>
-  
-</div>

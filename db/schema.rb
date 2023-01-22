@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_15_134721) do
+ActiveRecord::Schema.define(version: 2023_01_21_124024) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(version: 2023_01_15_134721) do
     t.integer "tag_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["item_id", "tag_id"], name: "index_itemtags_on_item_id_and_tag_id", unique: true
   end
 
   create_table "makers", force: :cascade do |t|
