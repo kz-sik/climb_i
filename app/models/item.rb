@@ -4,6 +4,7 @@ class Item < ApplicationRecord
   has_many :itemtags, dependent: :destroy
   has_many :tags, through: :itemtags
   has_many :reviews, dependent: :destroy
+  has_many :bookmarks, dependent: :destroy
 
   accepts_nested_attributes_for :tags
   accepts_nested_attributes_for :reviews, allow_destroy: true
@@ -26,5 +27,10 @@ class Item < ApplicationRecord
       new_post_tag = Tag.find_or_create_by(name: new)
       self.tags << new_post_tag
     end
+  end
+
+  #既にブックマークしているかの検証
+  def bookmarked_by?(user)
+    bookmarks.where(user_id: user).exists?
   end
 end

@@ -12,11 +12,12 @@ Rails.application.routes.draw do
       get 'followings' => 'relationships#followings', as: 'followings'
       get 'followers' => 'relationships#followers', as: 'followers'
     end
-    resources :items, only: [:new, :index, :show, :create, :edit, :update]
+    resources :items, only: [:new, :index, :show, :create, :edit, :update] do
+      resource :bookmarks, only: [:create, :destroy]
+    end
     resources :genres, only: [:index, :create, :edit, :update]
     resources :makers, only: [:index, :create, :edit, :update]
     resources :reviews
-    resources :bookmarks, only: [:index, :create, :destroy]
   end
   namespace :admin do
     get 'homes/top'
@@ -26,7 +27,7 @@ Rails.application.routes.draw do
   sessions: "admin/sessions"
   }
   #ユーザー
-  devise_for :user,skip: [:passwords], controllers: {
+  devise_for :user, controllers: {
   registrations: "public/registrations",
   sessions: 'public/sessions'
   }

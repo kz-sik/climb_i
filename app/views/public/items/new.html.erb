@@ -24,12 +24,12 @@
     </tr>
     <tr>
       <%= f.fields_for :tags do |ff| %>
-      <td><%= ff.label :name, "タグ (,で区切ると複数タグ登録できます)" %></td>
+      <td><%= ff.label :name, "タグ(,で区切ると複数タグ登録できます)" %></td>
       <td><%= ff.text_area :name %></td>
       <% end %>
     </tr>
     <%= f.fields_for :reviews do |ff| %>
-    <%#= ff.hidden_field :user_id, value: current_user.id %>
+    <%= ff.hidden_field :user_id, value: current_user.id %>
     <tr>
       <td><%= ff.label :star, "星評価" %></td>
       <td><%= ff.text_area :star %></td>

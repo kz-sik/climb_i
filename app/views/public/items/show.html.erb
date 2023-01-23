@@ -4,5 +4,10 @@
 <%= @item.maker.name %>
 <%= @item.genre.name %>
 <%= @item.tags.map(&:name).join(', ') %>
+<% if @item.bookmarked_by?(current_user) %>
+  <%= link_to "持ってる", item_bookmarks_path(@item), method: :delete, class: "btn btn-info" %>
+<% else %>
+  <%= link_to "持っていない", item_bookmarks_path(@item), method: :post, class: "btn btn-warning" %>
+<% end %>
 <%= @item.introduction %>
 <h2>レビュー一覧</h2>
