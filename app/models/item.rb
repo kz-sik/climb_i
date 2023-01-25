@@ -5,6 +5,8 @@ class Item < ApplicationRecord
   has_many :tags, through: :itemtags
   has_many :reviews, dependent: :destroy
   has_many :bookmarks, dependent: :destroy
+  belongs_to :maker
+  belongs_to :genre
 
   accepts_nested_attributes_for :tags
   accepts_nested_attributes_for :reviews, allow_destroy: true

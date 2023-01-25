@@ -1,5 +1,6 @@
 class Public::ItemsController < ApplicationController
   def new
+    @user = current_user
     @item = Item.new
     #itemと同時にtagとreviewも保存
       @item.tags.build
@@ -13,7 +14,7 @@ class Public::ItemsController < ApplicationController
     tag_list = params[:item][:name].split(',')
     if @item.save
       @item.save_tag(tag_list)
-      redirect_to item_path(params[:id])
+      redirect_to item_path(@item)
     else
       @genres = Genre.all
       @makers = Maker.all
@@ -22,18 +23,26 @@ class Public::ItemsController < ApplicationController
   end
 
   def index
+    @user = current_user
     @items = Item.all
   end
 
   def show
+    @user = current_user
     @item = Item.find(params[:id])
   end
 
   def edit
+    @user = current_user
     @item = Item.find(params[:id])
+    @genres = Genre.all
+    @makers = Maker.all
   end
 
   def update
+    @item = Item.find(params[:id])
+    @item.update(item_params)
+    redirect_to item_path(@item)
   end
 
   private

@@ -1,2 +1,39 @@
-<h1>アイテム</h1>
-<p>Find me in app/views/public/items/edit.html.erb</p>
+<%= render 'public/users/sidebar', user: @user %>
+<h1>アイテム編集</h1>
+<table>
+  <tbody>
+    <%= form_with model: @item, url: item_path, method: :patch do |f| %>
+      <tr>
+        <td><%= f.label :name, "アイテム名" %></td>
+        <td><%= f.text_field :name %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :image, "アイテム画像" %></td>
+        <td><%= f.file_field :image, accept: "image/*" %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :introduction, "アイテム説明文" %></td>
+        <td><%= f.text_area :introduction %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :genre_id, "ジャンル" %></td>
+        <td><%= f.collection_select :genre_id, @genres, :id, :name, include_blank: "選択して下さい" %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :maker_id, "メーカー" %></td>
+        <td><%= f.collection_select :maker_id, @makers, :id, :name, include_blank: "選択して下さい" %></td>
+      </tr>
+      <tr>
+        <%= f.fields_for :tags do |ff| %>
+          <td><%= ff.label :name, "タグ(,で区切ると複数タグ登録できます)" %></td>
+          <td><%= ff.text_area :name %></td>
+        <% end %>
+      </tr>
+      <tr>
+        <td>
+          <%= f.submit "登録する", class: "btn btn-success" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

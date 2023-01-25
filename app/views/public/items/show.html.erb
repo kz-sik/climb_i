@@ -1,13 +1,69 @@
-<h1>アイテム詳細</h1>
-<%= image_tag @item.image %>
-<%= @item.name %>
-<%= @item.maker.name %>
-<%= @item.genre.name %>
-<%= @item.tags.map(&:name).join(', ') %>
-<% if @item.bookmarked_by?(current_user) %>
-  <%= link_to "持ってる", item_bookmarks_path(@item), method: :delete, class: "btn btn-info" %>
-<% else %>
-  <%= link_to "持っていない", item_bookmarks_path(@item), method: :post, class: "btn btn-warning" %>
-<% end %>
-<%= @item.introduction %>
-<h2>レビュー一覧</h2>
+<div class="container">
+  <div class="row">
+    <%= render 'public/users/sidebar', user: @user %>
+    <div class="col-md-9">
+      <h1>アイテム詳細</h1>
+      <%= image_tag @item.image %>
+      <table>
+        <tbody>
+          <tr>
+            <td><%= @item.name %></td>
+          </tr>
+          <tr>
+            <td><%= @item.maker.name %></td>
+            <td><%= @item.genre.name %></td>
+          </tr>
+          <tr>
+            <td><%= @item.tags.map(&:name).join(', ') %></td>
+          </tr>
+          <tr>
+            <td>
+              <% if @item.bookmarked_by?(current_user) %>
+                <%= link_to "持ってる", item_bookmarks_path(@item), method: :delete, class: "btn btn-info" %>
+              <% else %>
+                <%= link_to "持っていない", item_bookmarks_path(@item), method: :post, class: "btn btn-warning" %>
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <td><%= @item.introduction %></td>
+          </tr>
+          <tr>
+            <td>
+              <%= link_to "編集する", edit_item_path(@item), class: "btn btn-success" %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>レビュー一覧</h2>
+      <table>
+        <tbody>
+          <% @item.reviews.each do |review| %>
+            <tr>
+              <td><%= image_tag review.user.get_profile_image(100,100) %></td>
+              <td><%= review.user.name %></td>
+            </tr>
+            <tr>
+              <td id='post_raty_<%= review.id %>'></td>
+                <script>
+                  var elem = document.getElementById('post_raty_<%= review.id %>');
+                  var opt = {
+                    size : 36,
+                    starOff: '<%= asset_path('star-off.png') %>',
+                    starOn : '<%= asset_path('star-on.png') %>',
+                    starHalf: '<%= asset_path('star-half.png') %>',
+                    score: <%= review.star %>,
+                    readOnly: true,
+                    half: true,
+                   };
+                  raty(elem,opt);
+                </script>
+              <td><%= review.comment %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
