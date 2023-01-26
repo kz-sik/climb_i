@@ -11,6 +11,15 @@ class Item < ApplicationRecord
   accepts_nested_attributes_for :tags
   accepts_nested_attributes_for :reviews, allow_destroy: true
 
+
+  def get_item_image(width, height)
+    unless image.attached?
+      file_path = Rails.root.join('app/assets/images/no_item_image.jpg')
+      image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
+    end
+    image.variant(resize_to_limit: [width, height]).processed
+  end
+
   def save_tag(sent_tags)
   # タグが存在していれば、タグの名前を配列として全て取得
     current_tags = self.tags.pluck(:name) unless self.tags.nil?

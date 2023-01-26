@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     patch '/users/information' => 'users#update'
     get '/users/unsubscribe' => 'users#unsubscribe'
     patch '/users/withdraw' => 'users#withdraw'
+    get '/users/:id/bookmarks' => 'users#bookmarks'
     resources :users do
       resource :relationships, only: [:create, :destroy]
       get 'followings' => 'relationships#followings', as: 'followings'

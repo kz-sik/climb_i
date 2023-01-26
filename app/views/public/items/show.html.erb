@@ -3,7 +3,7 @@
     <%= render 'public/users/sidebar', user: @user %>
     <div class="col-md-9">
       <h1>アイテム詳細</h1>
-      <%= image_tag @item.image %>
+      <%= image_tag @item.get_item_image(300,300) %>
       <table>
         <tbody>
           <tr>

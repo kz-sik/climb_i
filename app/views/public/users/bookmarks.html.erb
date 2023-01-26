@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="row">
+    <%= render 'public/users/sidebar', user: @sign_in_user %>
+    <div class="col-md-9">
+      <table>
+        <thead>
+          <tr>
+            <th>画像</th>
+            <th>商品名</th>
+            <th>メーカー</th>
+            <th>ジャンル</th>
+            <th>タグ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @user.bookmarks.each do |bookmark| %>
+            <tr>
+              <td>
+                <%= link_to item_path(bookmark.item.id) do %>
+                  <%= image_tag bookmark.item.get_item_image(150,150) %>
+                <% end %>
+              </td>
+              <td><%= bookmark.item.name %></td>
+              <td><%= bookmark.item.maker.name %></td>
+              <td><%= bookmark.item.genre.name %></td>
+              <td><%= bookmark.item.tags.map(&:name).join(', ') %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
