@@ -35,21 +35,20 @@
           <%= f.fields_for :reviews do |ff| %>
           <%= ff.hidden_field :user_id, value: current_user.id %>
           <tr>
-            <td id='post_raty'><%= ff.label :star, "星評価" %><%= ff.hidden_field :star %></td>
-            <td>
-              <script>
-                var elem = document.getElementById('post_raty');
-                var opt = {
-                    size : 36,
-                    starOff: '<%= asset_path('star-off.png') %>',
-                    starOn : '<%= asset_path('star-on.png') %>',
-                    starHalf: '<%= asset_path('star-half.png') %>',
-                    scoreName: 'item[reviews_attributes][0][star]',
-                    half: true,
-                  };
-                  raty(elem,opt);
-              </script>
-            </td>
+            <td><%= ff.label :star, "星評価" %></td>
+            <td><div id='post_raty'></div></td>
+            <%= ff.hidden_field :star %>
+            <script>
+              var elem = document.getElementById('post_raty');
+              var opt = {
+                  starOff: '<%= asset_path('star-off.png') %>',
+                  starOn : '<%= asset_path('star-on.png') %>',
+                  starHalf: '<%= asset_path('star-half.png') %>',
+                  scoreName: 'item[reviews_attributes][0][star]',
+                  half: true,
+                };
+              raty(elem,opt);
+            </script>
           </tr>
           <tr>
             <td><%= ff.label :comment, "コメント" %></td>

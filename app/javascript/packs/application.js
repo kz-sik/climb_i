@@ -18,9 +18,7 @@ import 'popper.js/dist/popper.js'
 
 import Raty from "raty.js"
 window.raty = function(elem,opt){
-    var raty =  new Raty(elem,opt)
-    raty.init();
-    return raty;
+    return new Raty(elem,opt).init();
 }
 
 
