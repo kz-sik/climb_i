@@ -1,2 +1,31 @@
-<h1>Public::Reviews#new</h1>
-<p>Find me in app/views/public/reviews/new.html.erb</p>
+<h1>新規レビュー投稿</h1>
+<%= form_with model: @review, url: item_reviews_path, method: :post do |f| %>
+  <% f.hidden_field :user_id, value: current_user.id %>
+  <table>
+    <tbody>
+      <tr>
+        <th><%= f.label :star, "星評価" %></th>
+        <td><div id='post_raty'></div></td>
+        <script>
+          var elem = document.getElementById('post_raty');
+          var opt = {
+              starOff: '<%= asset_path('star-off.png') %>',
+              starOn : '<%= asset_path('star-on.png') %>',
+              starHalf: '<%= asset_path('star-half.png') %>',
+              scoreName: 'authenticity_token',
+              half: true,
+            };
+            raty(elem,opt);
+        </script>
+      </tr>
+      <tr>
+        <th><%= f.label :comment, "コメント" %></th>
+        <td><%= f.text_area :comment %></td>
+      </tr>
+      <tr>
+        <th> </th>
+        <td><%= f.submit "投稿する", class: "btn btn-success" %></td>
+      </tr>
+    </tbody>
+  </table>
+<% end %>

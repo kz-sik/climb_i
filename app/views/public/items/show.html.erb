@@ -37,6 +37,7 @@
       </table>
 
       <h2>レビュー一覧</h2>
+      <%= link_to "新規レビュー投稿", new_item_review_path(@item), class: "btn btn-primary" %>
       <table>
         <tbody>
           <% @item.reviews.each do |review| %>

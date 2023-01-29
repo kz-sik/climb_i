@@ -35,7 +35,7 @@
           <%= f.fields_for :reviews do |ff| %>
           <%= ff.hidden_field :user_id, value: current_user.id %>
           <tr>
-            <td><%= ff.label :star, "星評価" %></td>
+            <th><%= ff.label :star, "星評価" %></th>
             <td><div id='post_raty'></div></td>
             <script>
               var elem = document.getElementById('post_raty');

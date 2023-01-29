@@ -8,17 +8,17 @@ Rails.application.routes.draw do
     get '/users/unsubscribe' => 'users#unsubscribe'
     patch '/users/withdraw' => 'users#withdraw'
     get '/users/:id/bookmarks' => 'users#bookmarks'
-    resources :users do
+    resources :users, only: [] do
       resource :relationships, only: [:create, :destroy]
       get 'followings' => 'relationships#followings', as: 'followings'
       get 'followers' => 'relationships#followers', as: 'followers'
     end
-    resources :items, only: [:new, :index, :show, :create, :edit, :update] do
+    resources :items, except: [:destroy] do
       resource :bookmarks, only: [:create, :destroy]
+      resources :reviews
     end
     resources :genres, only: [:index, :create, :edit, :update]
     resources :makers, only: [:index, :create, :edit, :update]
-    resources :reviews
   end
   namespace :admin do
     get 'homes/top'
