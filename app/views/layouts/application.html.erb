@@ -10,7 +10,25 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <body class="d-flex flex-column vh-100">
+    <header class="shadow-sm">
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+          <a class="navbar-brand p-3" href="/">logo</a>
+          <form class="form-inline my-2 my-lg-0">
+            <% if user_signed_in? %>
+              <div class="search_form">
+                <%= form_with url: search_path, local: true, method: :get do |f| %>
+                  <%= f.text_field :word, class: "form-control mr-sm-2", placeholder: "Search" %>
+                  <%= f.select :range, options_for_select([['User'], ['Item'], ['Tag']]), class: "form-control mr-sm-2" %>
+                  <%= f.submit "検索", class: "btn btn-outline-success my-2 my-sm-0" %>
+                <% end %>
+              </div>
+            <% end %>
+          </form>
+        </div>
+      </nav>
+    </header>
     <%= yield %>
   </body>
 </html>

@@ -20,10 +20,14 @@ class Public::ReviewsController < ApplicationController
   end
 
   def edit
+    @user = current_user
     @review = Review.find(params[:id])
   end
 
   def update
+    @review = Review.find(params[:id])
+    @review.update(review_params)
+    redirect_to item_review_path(@review.item_id, @review.id)
   end
 
   def destroy

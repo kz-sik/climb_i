@@ -36,6 +36,11 @@
             <tr>
               <td><%= image_tag @review.user.get_profile_image(100,100) %></td>
               <td><%= @review.user.name %></td>
+              <td>
+                <% if @review.user == current_user %>
+                  <%= link_to "編集", edit_item_review_path(@review.item_id, @review.id), class: "btn btn-warning" %>
+                <% end %>
+              </td>
             </tr>
             <tr>
               <td id='post_raty_<%= @review.id %>'></td>
@@ -46,7 +51,7 @@
                     starOff: '<%= asset_path('star-off.png') %>',
                     starOn : '<%= asset_path('star-on.png') %>',
                     starHalf: '<%= asset_path('star-half.png') %>',
-                    score: <%= review.star %>,
+                    score: <%= @review.star %>,
                     readOnly: true,
                     half: true,
                    };

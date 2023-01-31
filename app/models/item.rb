@@ -44,4 +44,8 @@ class Item < ApplicationRecord
   def bookmarked_by?(user)
     bookmarks.where(user_id: user).exists?
   end
+  
+  def self.looks(word)
+    @item = Item.where("name LIKE?","%#{word}%")
+  end
 end

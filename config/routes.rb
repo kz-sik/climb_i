@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "/search" => "searches#search"
   scope module: :public do
     root to: 'homes#top'
     get '/about' => 'homes#about', as: 'about'
@@ -8,7 +9,7 @@ Rails.application.routes.draw do
     get '/users/unsubscribe' => 'users#unsubscribe'
     patch '/users/withdraw' => 'users#withdraw'
     get '/users/:id/bookmarks' => 'users#bookmarks'
-    resources :users, only: [] do
+    resources :users, only: [:index] do
       resource :relationships, only: [:create, :destroy]
       get 'followings' => 'relationships#followings', as: 'followings'
       get 'followers' => 'relationships#followers', as: 'followers'

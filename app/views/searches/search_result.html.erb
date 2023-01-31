@@ -1,0 +1,32 @@
+<h2>検索結果</h2>
+
+<table class="table table-hover table-inverse">
+  <!--検索対象モデルがUserの時 -->
+  <% if @range == "User" %>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.name %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  <% elsif @range == "Item" %>
+    <!--検索対象モデルがItemの時 -->
+    <tbody>
+      <% @items.each do |item| %>
+        <tr>
+          <td><%= item.name %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  <% elsif @range == "Tag" %>
+    <!--検索対象モデルがTagの時 -->
+    <tbody>
+      <% @tags.each do |tag| %>
+        <tr>
+          <td><%= tag.name %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  <% end %>
+</table>

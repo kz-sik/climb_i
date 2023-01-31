@@ -2,7 +2,37 @@
   <div class="row">
     <%= render 'public/users/sidebar', user: @user %>
     <div class="col-md-9">
-      <h1></h1>
+      <h1>レビュー編集</h1>
+      <%= form_with model: @review, url: item_review_path(@review.item_id, @review.id), method: :patch do |f| %>
+        <table>
+          <tbody>
+            <tr>
+              <th><%= f.label :star, "星評価" %></th>
+              <td><div id='post_raty'></div></td>
+                <script>
+                  var elem = document.getElementById('post_raty');
+                  var opt = {
+                      starOff: '<%= asset_path('star-off.png') %>',
+                      starOn : '<%= asset_path('star-on.png') %>',
+                      starHalf: '<%= asset_path('star-half.png') %>',
+                      score: <%= @review.star %>,
+                      scoreName: 'authenticity_token',
+                      half: true,
+                    };
+                    raty(elem,opt);
+                </script>
+            </tr>
+            <tr>
+              <th><%= f.label :comment, "コメント" %></th>
+              <td><%= f.text_area :comment %></td>
+            </tr>
+            <tr>
+              <th></th>
+              <td><%= f.submit "再投稿", class: "btn btn-success" %></td>
+            </tr>
+          </tbody>
+        </table>
+      <% end %>
     </div>
   </div>
 </div>
