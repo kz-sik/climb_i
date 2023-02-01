@@ -9,15 +9,27 @@
             <th>ニックネーム</th>
             <th>性別</th>
             <th>身長</th>
+            <th></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
           <% @users.each do |user| %>
             <tr>
-              <td><%= image_tag user.get_profile_image(100, 100) %></td>
-              <td><%= user.name %></td>
+              <td>
+                <%= link_to user_path(user.id) do %>
+                  <%= image_tag user.get_profile_image(100, 100) %>
+                <% end %>
+              </td>
+              <td>
+                <%= link_to user_path(user.id) do %>
+                  <%= user.name %>
+                <% end %>
+              </td>
               <td><%= user.sex %></td>
               <td><%= user.height %></td>
+              <td>フォロー数: <%= user.followings.count %></td>
+              <td>フォロワー数: <%= user.followers.count %></td>
             </tr>
           <% end %>
         </tbody>

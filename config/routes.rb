@@ -3,13 +3,13 @@ Rails.application.routes.draw do
   scope module: :public do
     root to: 'homes#top'
     get '/about' => 'homes#about', as: 'about'
-    get '/users/my_page' => 'users#show'
+    get '/users/my_page' => 'users#my_page'
     get '/users/information/edit' => 'users#edit'
     patch '/users/information' => 'users#update'
     get '/users/unsubscribe' => 'users#unsubscribe'
     patch '/users/withdraw' => 'users#withdraw'
     get '/users/:id/bookmarks' => 'users#bookmarks'
-    resources :users, only: [:index] do
+    resources :users, only: [:index, :show] do
       resource :relationships, only: [:create, :destroy]
       get 'followings' => 'relationships#followings', as: 'followings'
       get 'followers' => 'relationships#followers', as: 'followers'

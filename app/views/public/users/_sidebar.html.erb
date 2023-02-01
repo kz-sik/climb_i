@@ -5,6 +5,12 @@
   <% if user_signed_in? %>
     <div><%= image_tag user.get_profile_image(100,100) %></div>
     <div><%= user.name %></div>
+    <div>
+      <%= link_to "フォロー", user_followings_path(user.id), class: "btn btn-info" %>
+    </div>
+    <div>
+      <%= link_to "フォロワー", user_followers_path(user.id), class: "btn btn-info" %>
+    </div>
     <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: 'btn btn-danger' %>
   <% else %>
     <div>
