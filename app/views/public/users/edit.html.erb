@@ -1,2 +1,38 @@
-<h1>Public::Users#edit</h1>
-<p>Find me in app/views/public/users/edit.html.erb</p>
+<div class="container">
+  <div class="row">
+    <%= render 'public/users/sidebar', user: @user %>
+    <div class="col-md-9">
+      <h1>ユーザー情報の編集</h1>
+      <%= form_with model: @user, url: users_information_path, method: :patch do |f| %>
+      <table>
+        <tbody>
+          <tr>
+            <th><%= f.label :name, "ニックネーム" %></th>
+            <td><%= f.text_field :name %></td>
+          </tr>
+          <tr>
+            <th><%= f.label :sex, "性別" %></th>
+            <td><%= f.select :sex,[['男性', '男性'], ['女性', '女性']], { include_blank: true} %></td>
+          </tr>
+          <tr>
+            <th><%= f.label :height, "身長" %></th>
+            <td><%= f.number_field :height %>cm</td>
+          </tr>
+          <tr>
+            <th><%= f.label :email, "メールアドレス" %></th>
+            <td><%= f.email_field :email, autofocus: true, autocomplete: "email" %></td>
+          </tr>
+          <tr>
+            <th></th>
+            <td><%= f.submit "編集内容を保存", class: "btn btn-success" %></td>
+          </tr>
+          <tr>
+            <th></th>
+            <td><%= link_to "退会する", users_unsubscribe_path, class: "btn btn-danger" %></td>
+          </tr>
+        </tbody>
+      </table>
+      <% end %>
+    </div>
+  </div>
+</div>

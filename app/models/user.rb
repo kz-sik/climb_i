@@ -27,7 +27,7 @@ class User < ApplicationRecord
   end
   # フォローしているか判定
   def following?(user)
-    followers.include?(user)
+    followings.include?(user)
   end
 
   def get_profile_image(width, height)
@@ -38,7 +38,7 @@ class User < ApplicationRecord
     image.variant(resize_to_limit: [width, height]).processed
   end
 
-  def self.look(word)
+  def self.looks(word)
     @user = User.where("name LIKE?","%#{word}%")
   end
 end

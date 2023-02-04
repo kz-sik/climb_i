@@ -1,14 +1,14 @@
 Rails.application.routes.draw do
-  get "/search" => "searches#search"
   scope module: :public do
     root to: 'homes#top'
+    get "/search" => "searches#search"
     get '/about' => 'homes#about', as: 'about'
     get '/users/my_page' => 'users#my_page'
     get '/users/information/edit' => 'users#edit'
     patch '/users/information' => 'users#update'
     get '/users/unsubscribe' => 'users#unsubscribe'
     patch '/users/withdraw' => 'users#withdraw'
-    get '/users/:id/bookmarks' => 'users#bookmarks'
+    get '/users/:id/bookmarks' => 'users#bookmarks', as: 'users_bookmarks'
     resources :users, only: [:index, :show] do
       resource :relationships, only: [:create, :destroy]
       get 'followings' => 'relationships#followings', as: 'followings'

@@ -8,9 +8,11 @@ class Public::ReviewsController < ApplicationController
   end
 
   def create
-    @review = Review.new(review_params)
+    @item = Item.find(params[:item_id])
+    @review = current_user.reviews.new(review_params)
+    @review.item_id = @item.id
     @review.save
-    redirect_to item_review_path(@review.item_id, @review.id)
+    redirect_to item_review_path(@item.id, @review.id)
   end
 
   def show

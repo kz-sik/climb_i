@@ -14,19 +14,19 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <% @items.each do |item| %>
+          <% @items.each do |item| %>
+            <tr>
               <td>
                 <%= link_to item_path(item.id) do %>
-                  <%= image_tag item..get_item_image(150,150) %>
+                  <%= image_tag item.get_item_image(100,100) %>
                 <% end %>
               </td>
               <td><%= item.name %></td>
               <td><%= item.maker.name %></td>
               <td><%= item.genre.name %></td>
               <td><%= item.tags.map(&:name).join(', ') %></td>
-            <% end %>
-          </tr>
+            </tr>
+          <% end %>
         </tbody>
       </table>
     </div>

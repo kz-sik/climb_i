@@ -10,21 +10,12 @@
         </tr>
       <% end %>
     </tbody>
-  <% elsif @range == "Item" %>
+  <% else %>
     <!--検索対象モデルがItemの時 -->
     <tbody>
       <% @items.each do |item| %>
         <tr>
           <td><%= item.name %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  <% elsif @range == "Tag" %>
-    <!--検索対象モデルがTagの時 -->
-    <tbody>
-      <% @tags.each do |tag| %>
-        <tr>
-          <td><%= tag.name %></td>
         </tr>
       <% end %>
     </tbody>

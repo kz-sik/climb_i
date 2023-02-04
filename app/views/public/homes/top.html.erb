@@ -2,7 +2,36 @@
   <div class="row">
     <%= render 'public/users/sidebar', user: @user %>
     <div class="col-md-9">
-      
+      <h1>新着投稿アイテム</h1>
+      <div>
+        <% @items.each do |item| %>
+          <%= link_to item_path(item.id) do %>
+            <%= image_tag item.get_item_image(150,150) %>
+          <% end %>
+          <%= item.name %>
+        <% end %>
+      </div>
+      <h1>新着レビューのあったアイテム</h1>
+      <div>
+        <% @reviews.each do |review| %>
+          <%= link_to item_path(review.item.id) do %>
+            <%= image_tag review.item.get_item_image(150,150) %>
+          <% end %>
+          <%= review.item.name %>
+        <% end %>
+      </div>
+      <%= link_to "全ての商品を見る＞", items_path %>
+      <h1>新着ユーザー</h1>
+      <div>
+        <% @users.each do |user| %>
+          <%= link_to user_path(user.id) do %>
+            <%= image_tag user.get_profile_image(150,150) %>
+          <% end %>
+          <%= user.name %>
+        <% end %>
+      </div>
+      <%= link_to "全てのユーザーを見る＞", users_path %>
+    </div>
     </div>
   </div>
 </div>
