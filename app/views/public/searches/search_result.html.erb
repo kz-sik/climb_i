@@ -1,23 +1,61 @@
-<h2>検索結果</h2>
-
-<table class="table table-hover table-inverse">
-  <!--検索対象モデルがUserの時 -->
-  <% if @range == "User" %>
-    <tbody>
-      <% @users.each do |user| %>
-        <tr>
-          <td><%= user.name %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  <% else %>
-    <!--検索対象モデルがItemの時 -->
-    <tbody>
-      <% @items.each do |item| %>
-        <tr>
-          <td><%= item.name %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  <% end %>
-</table>
+<div class="container">
+  <div class="row">
+    <%= render 'public/users/sidebar', user: @user %>
+    <div class="col-md-9">
+      <h2>検索結果</h2>
+      <table class="table table-hover table-inverse">
+        <!--検索対象モデルがUserの時 -->
+        <% if @range == "User" %>
+          <tbody>
+            <thead>
+              <tr>
+                <th></th>
+                <th>ユーザー名</th>
+                <th>フォロー数</th>
+                <th>フォロワー数</th>
+              </tr>
+            </thead>
+            <% @users.each do |user| %>
+              <tr>
+                <td>
+                  <%= link_to user_path(user.id) do %>
+                    <%= image_tag user.get_profile_image(100, 100) %>
+                  <% end %>
+                </td>
+                <td><%= user.name %></td>
+                <td><%= @user.followings.count %></td>
+                <td><%= @user.followers.count %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        <% else %>
+          <!--検索対象モデルがItemの時 -->
+          <thead>
+            <tr>
+              <th>画像</th>
+              <th>商品名</th>
+              <th>メーカー</th>
+              <th>ジャンル</th>
+              <th>タグ</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @items.each do |item| %>
+              <tr>
+                <td>
+                  <%= link_to item_path(item.id) do %>
+                    <%= image_tag item.get_item_image(100,100) %>
+                  <% end %>
+                </td>
+                <td><%= item.name %></td>
+                <td><%= item.maker.name %></td>
+                <td><%= item.genre.name %></td>
+                <td><%= item.tags.map(&:name).join(', ') %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>

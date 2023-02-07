@@ -2,7 +2,19 @@
   <div class="row">
     <%= render 'public/users/sidebar', user: @user %>
     <div class="col-md-9">
+      <%= form_tag items_path, method: :get, class: 'boards__searchForm' do %>
+        <%= select_tag :tag_id,
+                       options_from_collection_for_select(Maker.all, :id, :name, params[:maker_id]),
+                       {
+                         prompt: 'メーカー名で絞り込み検索',
+                         onchange: 'submit(this.form);'
+                       }
+        %>
+      <% end %>
       <h1>アイテム一覧</h1>
+      <span>
+        <%= link_to "新規アイテム投稿", new_item_path, class: "btn btn-primary" %>
+      </span>
       <table>
         <thead>
           <tr>

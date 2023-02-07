@@ -11,7 +11,8 @@ class Public::ItemsController < ApplicationController
 
   def create
     @item = Item.new(item_params)
-    tag_list = params[:item][:name].split(',')
+    tag_list = params[:tags][:name].split(',')
+    byebug
     if @item.save
       @item.save_tag(tag_list)
       redirect_to item_path(@item)
@@ -24,7 +25,7 @@ class Public::ItemsController < ApplicationController
 
   def index
     @user = current_user
-    @items = Item.all
+    @items = params[:maker_id].present? ? Maker.find(params[:maker_id]).items : Item.all
   end
 
   def show
@@ -48,6 +49,6 @@ class Public::ItemsController < ApplicationController
   private
 
   def item_params
-    params.require(:item).permit(:genre_id, :maker_id, :name, :introduction, :image, tags_attributes:[:id, :name], reviews_attributes:[:id, :user_id, :item_id, :star, :comment])
+    params.require(:item).permit(:genre_id, :maker_id, :name, :introduction, :image, tag_ids: [], reviews_attributes:[:id, :user_id, :item_id, :star, :comment])
   end
 end

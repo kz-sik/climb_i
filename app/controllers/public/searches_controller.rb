@@ -2,6 +2,7 @@ class Public::SearchesController < ApplicationController
   before_action :authenticate_user!
 
   def search
+    @user = current_user
     @range = params[:range]
 
     if @range == "User"

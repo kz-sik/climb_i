@@ -27,9 +27,19 @@
             <td><%= f.collection_select :maker_id, @makers, :id, :name, include_blank: "選択して下さい" %></td>
           </tr>
           <tr>
-            <%= f.fields_for :tags do |ff| %>
+            <%= fields_for :tags do |ff| %>
             <td><%= ff.label :name, "タグ(,で区切ると複数タグ登録できます)" %></td>
             <td><%= ff.text_area :name %></td>
+            <td>
+              <%= ff.collection_check_boxes(:id, Tag.all, :id, :name) do |tag| %>
+               <div>
+                 <%= tag.label do %>
+                   <%= tag.check_box %>
+                   <%= tag.text %>
+                 <% end %>
+               </div>
+              <% end %>
+            </td>
             <% end %>
           </tr>
           <%= f.fields_for :reviews do |ff| %>

@@ -1,7 +1,4 @@
 <div class="col-md-3">
-  <h2>
-    <%= link_to "logo", root_path %>
-  </h2>
   <% if user_signed_in? %>
     <div><%= image_tag user.get_profile_image(100,100) %></div>
     <div><%= user.name %></div>

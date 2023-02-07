@@ -14,7 +14,11 @@
             <td><%= @item.genre.name %></td>
           </tr>
           <tr>
-            <td><%= @item.tags.map(&:name).join(', ') %></td>
+            <td>
+              <% @item.tags.each do |tag| %>
+                <%= tag.name %>
+              <% end %>
+            </td>
           </tr>
           <tr>
             <td>
