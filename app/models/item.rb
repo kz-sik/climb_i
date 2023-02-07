@@ -2,7 +2,7 @@ class Item < ApplicationRecord
   has_one_attached :image
 
   has_many :itemtags, dependent: :destroy
-  has_many :tags, through: :itemtags
+  has_many :tags, through: :itemtags # tag_ids
   has_many :reviews, dependent: :destroy
   has_many :bookmarks, dependent: :destroy
   belongs_to :maker
@@ -11,6 +11,10 @@ class Item < ApplicationRecord
   accepts_nested_attributes_for :tags
   accepts_nested_attributes_for :reviews, allow_destroy: true
 
+  before_validation :validate_tag
+  after_save :create_tag
+
+  attribute :tag_names, :string, default: ""
 
   def get_item_image(width, height)
     unless image.attached?
@@ -20,26 +24,6 @@ class Item < ApplicationRecord
     image.variant(resize_to_limit: [width, height]).processed
   end
 
-  def save_tag(sent_tags)
-  # タグが存在していれば、タグの名前を配列として全て取得
-    current_tags = self.tags.pluck(:name) unless self.tags.nil?
-    # 現在取得したタグから送られてきたタグを除いてoldtagとする
-    old_tags = current_tags - sent_tags
-    # 送信されてきたタグから現在存在するタグを除いたタグをnewとする
-    new_tags = sent_tags - current_tags
-
-    # 古いタグを消す
-    old_tags.each do |old|
-      self.tags.delete Tag.find_by(name: old)
-    end
-
-    # 新しいタグを保存
-    new_tags.each do |new|
-      new_post_tag = Tag.find_or_create_by(name: new)
-      self.tags << new_post_tag
-    end
-  end
-
   #既にブックマークしているかの検証
   def bookmarked_by?(user)
     bookmarks.where(user_id: user).exists?
@@ -47,5 +31,33 @@ class Item < ApplicationRecord
 
   def self.looks(word)
     @item = Item.where("name LIKE?","%#{word}%")
+  end
+
+  private
+
+  def validate_tag
+    tag_names = self.tag_names.split(",")
+    tag_names.each do |tag_name|
+      tag = Tag.new(name: tag_name)
+      if tag.invalid?
+        self.errors.add(:tag_name, "タグが不正です")
+        break
+      end
+    end
+  end
+
+  def create_tag
+    return if self.tag_names.blank?
+    current_tags = if self.tags.present?
+      self.tags.pluck(:name)
+    else
+      []
+    end
+
+    new_tags = self.tag_names.split(",") - current_tags
+    new_tags.each do |new_tag|
+      new_post_tag = Tag.find_or_create_by(name: new_tag)
+      self.tags << new_post_tag
+    end
   end
 end

@@ -11,12 +11,10 @@ class Public::ItemsController < ApplicationController
 
   def create
     @item = Item.new(item_params)
-    tag_list = params[:tags][:name].split(',')
-    byebug
     if @item.save
-      @item.save_tag(tag_list)
       redirect_to item_path(@item)
     else
+      @user = current_user
       @genres = Genre.all
       @makers = Maker.all
       render :new
@@ -49,6 +47,6 @@ class Public::ItemsController < ApplicationController
   private
 
   def item_params
-    params.require(:item).permit(:genre_id, :maker_id, :name, :introduction, :image, tag_ids: [], reviews_attributes:[:id, :user_id, :item_id, :star, :comment])
+    params.require(:item).permit(:genre_id, :maker_id, :name, :introduction, :image, :tag_names, tag_ids: [], reviews_attributes:[:id, :user_id, :item_id, :star, :comment])
   end
 end

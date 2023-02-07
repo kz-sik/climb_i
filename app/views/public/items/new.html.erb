@@ -27,11 +27,12 @@
             <td><%= f.collection_select :maker_id, @makers, :id, :name, include_blank: "選択して下さい" %></td>
           </tr>
           <tr>
-            <%= fields_for :tags do |ff| %>
-            <td><%= ff.label :name, "タグ(,で区切ると複数タグ登録できます)" %></td>
-            <td><%= ff.text_area :name %></td>
+            <td><%= f.label :tag_names, "タグ(,で区切ると複数タグ登録できます)" %></td>
+            <td><%= f.text_area :tag_names %></td>
+          </tr>
+          <tr>
             <td>
-              <%= ff.collection_check_boxes(:id, Tag.all, :id, :name) do |tag| %>
+              <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
                <div>
                  <%= tag.label do %>
                    <%= tag.check_box %>
@@ -40,7 +41,6 @@
                </div>
               <% end %>
             </td>
-            <% end %>
           </tr>
           <%= f.fields_for :reviews do |ff| %>
           <%= ff.hidden_field :user_id, value: current_user.id %>
