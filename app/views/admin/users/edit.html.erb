@@ -1,2 +1,36 @@
-<h1>Admin::User#edit</h1>
-<p>Find me in app/views/admin/user/edit.html.erb</p>
+<h4><span class="title"><%= @user.name %>さんの会員情報編集</span></h4>
+<%= form_with model: @user, url: admin_user_path, method: :patch do |f| %>
+<table>
+  <tbody>
+    <tr>
+      <td>会員ID</td>
+      <td><%= @user.id %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :name, 'ニックネーム' %></td>
+      <td><%= f.text_field :name %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :heighr, '身長' %></td>
+      <td><%= f.number_field :height %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :sex, "性別" %></td>
+      <td><%= f.select :sex,[['男性', '男性'], ['女性', '女性']], { include_blank: true} %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :is_deleted, '会員ステータス' %></td>
+      <td>
+        <%= f.radio_button :is_deleted, false %>
+        <%= f.label :is_deleted, "有効" %>
+        <%= f.radio_button :is_deleted, true %>
+        <%= f.label :is_deleted, "無効" %>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><%= f.submit "変更を保存", class: "btn btn-success" %></td>
+    </tr>
+  </tbody>
+</table>
+<% end %>
