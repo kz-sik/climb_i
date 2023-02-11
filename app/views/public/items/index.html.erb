@@ -4,9 +4,9 @@
     <div class="col-md-9">
       <%= form_tag items_path, method: :get, class: 'boards__searchForm' do %>
         <%= select_tag :tag_id,
-                       options_from_collection_for_select(Maker.all, :id, :name, params[:maker_id]),
+                       options_from_collection_for_select(Tag.all, :id, :name, params[:tag_id]),
                        {
-                         prompt: 'メーカー名で絞り込み検索',
+                         prompt: 'タグで絞り込み検索',
                          onchange: 'submit(this.form);'
                        }
         %>

@@ -36,11 +36,14 @@
             <tr>
               <td><%= image_tag @review.user.get_profile_image(100,100) %></td>
               <td><%= @review.user.name %></td>
-              <td>
-                <% if @review.user == current_user %>
+              <% if @review.user == current_user %>
+                <td>
                   <%= link_to "編集", edit_item_review_path(@review.item_id, @review.id), class: "btn btn-warning" %>
-                <% end %>
-              </td>
+                </td>
+                <td>
+                  <%= link_to "削除", item_review_path(@review.item_id, @review.id), method: :delete, data: {confirm: '削除してもいいですか？'}, class: "btn btn-danger" %>
+                </td>
+              <% end %>
             </tr>
             <tr>
               <td id='post_raty_<%= @review.id %>'></td>

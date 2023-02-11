@@ -1,0 +1,37 @@
+<h1>アイテム一覧</h1>
+<table>
+  <thead>
+    <tr>
+      <th>画像</th>
+      <th>アイテム名</th>
+      <th>ジャンル</th>
+      <th>メーカー</th>
+      <th>タグ</th>
+      <th>レビュー数</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @items.each do |item| %>
+      <tr>
+        <td>
+          <%= link_to admin_item_path(item.id) do %>
+            <%= image_tag item.get_item_image(100,100) %>
+          <% end %>
+        </td>
+        <td><%= item.name %></td>
+        <td><%= item.genre.name %></td>
+        <td><%= item.maker.name %></td>
+        <td><%= item.tags.map(&:name).join(', ') %></td>
+        <td><%= item.reviews.count %></td>
+        <td>
+          <%= link_to "編集", edit_admin_item_path(item.id), class: "btn btn-success" %>
+        </td>
+        <td>
+          <%= link_to "削除", admin_item_path(item.id), method: :delete, data: {confirm: '削除してもいいですか？'}, class: "btn btn-danger" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

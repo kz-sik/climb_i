@@ -23,6 +23,7 @@ class Public::ItemsController < ApplicationController
 
   def index
     @user = current_user
+    @items = params[:tag_id].present? ? Tag.find(params[:tag_id]).items : Item.all
     @items = params[:maker_id].present? ? Maker.find(params[:maker_id]).items : Item.all
   end
 

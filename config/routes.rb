@@ -16,13 +16,17 @@ Rails.application.routes.draw do
     end
     resources :items, except: [:destroy] do
       resource :bookmarks, only: [:create, :destroy]
-      resources :reviews
+      resources :reviews, except: [:index]
     end
     resources :genres, only: [:index, :create, :edit, :update]
     resources :makers, only: [:index, :create, :edit, :update]
   end
   namespace :admin do
-    get 'homes/top'
+    get '' => 'homes#top'
+    resources :users, except: [:new, :create, :destroy]
+    resources :items, only: [:index,:show, :edit, :update, :destroy] do
+      resources :reviews, only: [:destroy]
+    end
   end
   #管理者
   devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
