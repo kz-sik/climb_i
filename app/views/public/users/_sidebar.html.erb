@@ -1,25 +1,39 @@
 <div class="col-md-3">
   <% if user_signed_in? %>
-    <div><%= image_tag user.get_profile_image(100,100) %></div>
-    <div><%= user.name %></div>
-    <div><%= user.sex %></div>
-    <div><%= user.height %></div>
-    <div>
-      <%= link_to "フォロー", user_followings_path(user.id), class: "btn btn-info" %>
+    <div class="text-center " style="width: auto;"><%= image_tag user.get_profile_image(200,200) %></div>
+    <div class="text-center" style="width: auto;"><%= user.name %></div>
+    <div class="text-center" style="width: auto;"><%= user.sex %></div>
+    <div class="text-center" style="width: auto;"><%= user.height %>cm</div>
+    <div class="d-flex justify-content-around my-3">
+      <div>
+        <%= link_to "フォロー", user_followings_path(user.id), class: "btn btn-info w-auto" %>
+      </div>
+      <div>
+        <%= link_to "フォロワー", user_followers_path(user.id), class: "btn btn-info w-auto" %>
+      </div>
     </div>
-    <div>
-      <%= link_to "フォロワー", user_followers_path(user.id), class: "btn btn-info" %>
+    <div class="text-center my-3" style="width: auto;">
+      <%= link_to "ユーザー情報編集", users_information_edit_path(user.id), class: "btn btn-warning w-100" %>
     </div>
-    <div>
-      <%= link_to "ユーザー情報編集", users_information_edit_path(user.id), class: "btn btn-warning" %>
-      <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: 'btn btn-danger' %>
+    <div class="text-center my-3" style="width: auto;">
+      <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: 'btn btn-danger w-100' %>
     </div>
   <% else %>
-    <div>
-      <%= link_to "新規登録", new_user_registration_path, class: "btn btn-primary" %>
+    <div class="text-center my-5">
+      <p class="lead">
+        <strong>climb_i</strong>は、<br>
+        クライミングをより身近に<br>
+        より楽しくする<br>
+        レビューサイトです。
+      </p>
     </div>
-    <div>
-      <%= link_to "ログイン", new_user_session_path, class: "btn btn-success" %>
+    <div class="m-auto">
+      <div class="my-3">
+        <%= link_to "新規登録", new_user_registration_path, class: "btn btn-primary w-100" %>
+      </div>
+      <div>
+        <%= link_to "ログイン", new_user_session_path, class: "btn btn-success w-100" %>
+      </div>
     </div>
   <% end %>
 </div>
