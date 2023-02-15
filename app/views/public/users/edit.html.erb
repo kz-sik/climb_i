@@ -1,37 +1,35 @@
 <div class="container">
-  <div class="row">
-    <%= render 'public/users/sidebar', user: @user %>
-    <div class="col-md-9">
-      <h1>ユーザー情報の編集</h1>
+  <div class="row" style="background-image: url(<%= asset_path('sidebar.jpg') %>); background-size: contain;">
+    <div class="p-3 mx-auto" style="width: 400px;">
+      <div class="h3 text-center "><u>ユーザー情報の編集</u></div>
       <%= form_with model: @user, url: users_information_path, method: :patch do |f| %>
-      <table>
-        <tbody>
-          <tr>
-            <th><%= f.label :name, "ニックネーム" %></th>
-            <td><%= f.text_field :name %></td>
-          </tr>
-          <tr>
-            <th><%= f.label :sex, "性別" %></th>
-            <td><%= f.select :sex,[['男性', '男性'], ['女性', '女性']], { include_blank: true} %></td>
-          </tr>
-          <tr>
-            <th><%= f.label :height, "身長" %></th>
-            <td><%= f.number_field :height %>cm</td>
-          </tr>
-          <tr>
-            <th><%= f.label :email, "メールアドレス" %></th>
-            <td><%= f.email_field :email, autofocus: true, autocomplete: "email" %></td>
-          </tr>
-          <tr>
-            <th></th>
-            <td><%= f.submit "編集内容を保存", class: "btn btn-success" %></td>
-          </tr>
-          <tr>
-            <th></th>
-            <td><%= link_to "退会する", users_unsubscribe_path, class: "btn btn-danger" %></td>
-          </tr>
-        </tbody>
-      </table>
+        <div class="form-group">
+          <strong><%= f.label :name, "ニックネーム" %></strong><br />
+          <%= f.text_field :name %>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-3">
+            <strong><%= f.label :sex, "性別" %></strong><br />
+            <%= f.select :sex,[['男性', '男性'], ['女性', '女性']], { include_blank: true} %>
+          </div>
+          <div class="form-group col-md-9">
+            <strong><%= f.label :height, "身長" %></strong><br />
+            <%= f.number_field :height %>cm
+          </div>
+        </div>
+
+        <div class="form-group">
+          <strong><%= f.label :email, "メールアドレス" %></strong><br />
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "climb_i@xxx.com" %>
+        </div>
+
+        <div class="actions">
+          <%= f.submit "新規登録", class: "btn btn-success w-100" %>
+        </div>
+        <div>
+          <%= link_to "退会する", users_unsubscribe_path, class: "btn btn-danger w-100 my-3" %>
+        </div>
       <% end %>
     </div>
   </div>

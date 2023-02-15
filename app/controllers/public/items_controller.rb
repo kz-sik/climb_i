@@ -22,7 +22,6 @@ class Public::ItemsController < ApplicationController
   end
 
   def index
-    @user = current_user
     @items = params[:tag_id].present? ? Tag.find(params[:tag_id]).items : Item.all
   end
 

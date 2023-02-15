@@ -1,8 +1,9 @@
 <div class="container">
   <div class="row">
-    <%= render 'public/users/sidebar', user: @user %>
-    <div class="col-md-9">
-      <table>
+    <%= render 'public/users/sidebar', user: current_user %>
+    <div class="col-9">
+      <div class="h3 ml-3">ユーザー一覧</div>
+      <table class="table table-striped table-bordered text-center ml-3">
         <thead>
           <tr>
             <th></th>
@@ -16,20 +17,20 @@
         <tbody>
           <% @users.each do |user| %>
             <tr>
-              <td>
+              <td class="align-middle p-2">
                 <%= link_to user_path(user.id) do %>
                   <%= image_tag user.get_profile_image(100, 100) %>
                 <% end %>
               </td>
-              <td>
+              <td class="align-middle p-2">
                 <%= link_to user_path(user.id) do %>
                   <%= user.name %>
                 <% end %>
               </td>
-              <td><%= user.sex %></td>
-              <td><%= user.height %></td>
-              <td>フォロー数: <%= user.followings.count %></td>
-              <td>フォロワー数: <%= user.followers.count %></td>
+              <td class="align-middle p-2"><%= user.sex %></td>
+              <td class="align-middle p-2"><%= user.height %></td>
+              <td class="align-middle p-2">フォロー数: <%= user.followings.count %></td>
+              <td class="align-middle p-2">フォロワー数: <%= user.followers.count %></td>
             </tr>
           <% end %>
         </tbody>
