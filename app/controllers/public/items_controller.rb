@@ -1,6 +1,5 @@
 class Public::ItemsController < ApplicationController
   def new
-    @user = current_user
     @item = Item.new
     #itemと同時にtagとreviewも保存
       @item.tags.build

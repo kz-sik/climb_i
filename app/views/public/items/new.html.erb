@@ -1,39 +1,39 @@
 <div class="container">
   <div class="row">
-    <%= render 'public/users/sidebar', user: @user %>
-    <div class="col-md-9">
-      <h1>新規アイテム登録</h1>
+    <%= render 'public/users/sidebar', user: current_user %>
+    <div class="col-9">
+      <div class="h3 ml-3 my-3">新規アイテム登録</div>
       <%= form_with model: @item,url: items_path, method: :post do |f| %>
-      <table>
+      <table class="table">
         <tbody>
           <tr>
-            <td><%= f.label :name, "アイテム名" %></td>
+            <th class="text-center"><%= f.label :name, "アイテム名" %></th>
             <td><%= f.text_field :name %></td>
           </tr>
           <tr>
-            <td><%= f.label :image, "アイテム画像" %></td>
+            <th class="text-center"><%= f.label :image, "アイテム画像" %></th>
             <td><%= f.file_field :image, accept: "image/*" %></td>
           </tr>
           <tr>
-            <td><%= f.label :introduction, "アイテム説明文" %></td>
+            <th class="text-center"><%= f.label :introduction, "アイテム説明文" %></th>
             <td><%= f.text_area :introduction %></td>
           </tr>
           <tr>
-            <td><%= f.label :genre_id, "ジャンル" %></td>
+            <th class="text-center"><%= f.label :genre_id, "ジャンル" %></th>
             <td><%= f.collection_select :genre_id, @genres, :id, :name, include_blank: "選択して下さい" %></td>
           </tr>
           <tr>
-            <td><%= f.label :maker_id, "メーカー" %></td>
+            <th class="text-center"><%= f.label :maker_id, "メーカー" %></th>
             <td><%= f.collection_select :maker_id, @makers, :id, :name, include_blank: "選択して下さい" %></td>
           </tr>
           <tr>
-            <td><%= f.label :tag_names, "タグ(,で区切ると複数タグ登録できます)" %></td>
+            <th class="text-center"><%= f.label :tag_names, "タグ(,で区切ると複数タグ登録できます)" %></th>
             <td><%= f.text_area :tag_names %></td>
           </tr>
           <tr>
-            <td>
+            <td colspan="2">
               <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
-               <div>
+               <div class="form-check form-check-inline">
                  <%= tag.label do %>
                    <%= tag.check_box %>
                    <%= tag.text %>
@@ -42,10 +42,15 @@
               <% end %>
             </td>
           </tr>
+          <tr class="table-info">
+            <td colspan="2">
+              <div class="h5 ml-3">このアイテムの最初のレビューを同時投稿お願いします！</div>
+            </td>
+          </tr>
           <%= f.fields_for :reviews do |ff| %>
           <%= ff.hidden_field :user_id, value: current_user.id %>
           <tr>
-            <th><%= ff.label :star, "星評価" %></th>
+            <th class="text-center"><%= ff.label :star, "星評価" %></th>
             <td><div id='post_raty'></div></td>
             <script>
               var elem = document.getElementById('post_raty');
@@ -60,12 +65,12 @@
             </script>
           </tr>
           <tr>
-            <td><%= ff.label :comment, "コメント" %></td>
+            <th class="text-center"><%= ff.label :comment, "コメント" %></th>
             <td><%= ff.text_area :comment %></td>
           </tr>
           <% end %>
           <tr>
-            <td><%= f.submit "投稿する", class: "btn btn-success" %></td>
+            <td colspan="2" class="text-center"><%= f.submit "投稿する", class: "btn btn-success" %></td>
           </tr>
         </tbody>
       </table>
