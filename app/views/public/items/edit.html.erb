@@ -1,49 +1,55 @@
-<%= render 'public/users/sidebar', user: @user %>
-<h1>アイテム編集</h1>
-<table>
-  <tbody>
-    <%= form_with model: @item, url: item_path, method: :patch do |f| %>
-      <tr>
-        <td><%= f.label :name, "アイテム名" %></td>
-        <td><%= f.text_field :name %></td>
-      </tr>
-      <tr>
-        <td><%= f.label :image, "アイテム画像" %></td>
-        <td><%= f.file_field :image, accept: "image/*" %></td>
-      </tr>
-      <tr>
-        <td><%= f.label :introduction, "アイテム説明文" %></td>
-        <td><%= f.text_area :introduction %></td>
-      </tr>
-      <tr>
-        <td><%= f.label :genre_id, "ジャンル" %></td>
-        <td><%= f.collection_select :genre_id, @genres, :id, :name, include_blank: "選択して下さい" %></td>
-      </tr>
-      <tr>
-        <td><%= f.label :maker_id, "メーカー" %></td>
-        <td><%= f.collection_select :maker_id, @makers, :id, :name, include_blank: "選択して下さい" %></td>
-      </tr>
-      <tr>
-        <td><%= f.label :tag_names, "タグ(,で区切ると複数タグ登録できます)" %></td>
-        <td><%= f.text_area :tag_names %></td>
-      </tr>
-      <tr>
-        <td>
-          <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
-           <div>
-             <%= tag.label do %>
-               <%= tag.check_box %>
-               <%= tag.text %>
-             <% end %>
-           </div>
-          <% end %>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <%= f.submit "登録する", class: "btn btn-success" %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="container">
+  <div class="row">
+    <%= render 'public/users/sidebar', user: current_user %>
+    <div class="col-9">
+      <div class="h3 ml-3 my-3">アイテム編集</div>
+      <%= form_with model: @item, url: item_path, method: :patch do |f| %>
+      <table class="table">
+        <tbody>
+            <tr>
+              <th class="text-center"><%= f.label :name, "アイテム名" %></th>
+              <td><%= f.text_field :name %></td>
+            </tr>
+            <tr>
+              <th class="text-center"><%= f.label :image, "アイテム画像" %></th>
+              <td><%= f.file_field :image, accept: "image/*" %></td>
+            </tr>
+            <tr>
+              <th class="text-center"><%= f.label :introduction, "アイテム説明文" %></th>
+              <td><%= f.text_area :introduction %></td>
+            </tr>
+            <tr>
+              <th class="text-center"><%= f.label :genre_id, "ジャンル" %></th>
+              <td><%= f.collection_select :genre_id, @genres, :id, :name, include_blank: "選択して下さい" %></td>
+            </tr>
+            <tr>
+              <th class="text-center"><%= f.label :maker_id, "メーカー" %></th>
+              <td><%= f.collection_select :maker_id, @makers, :id, :name, include_blank: "選択して下さい" %></td>
+            </tr>
+            <tr>
+              <th class="text-center"><%= f.label :tag_names, "タグ(,で区切ると複数タグ登録できます)" %></th>
+              <td><%= f.text_area :tag_names %></td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
+                 <div class="form-check form-check-inline">
+                   <%= tag.label do %>
+                     <%= tag.check_box %>
+                     <%= tag.text %>
+                   <% end %>
+                 </div>
+                <% end %>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2" class="text-center">
+                <%= f.submit "登録する", class: "btn btn-success" %>
+              </td>
+            </tr>
+        </tbody>
+      </table>
+      <% end %>
+    </div>
+  </div>
+</div>

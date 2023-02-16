@@ -30,8 +30,8 @@ class Public::ItemsController < ApplicationController
   end
 
   def edit
-    @user = current_user
     @item = Item.find(params[:id])
+      @item.tags.build
     @genres = Genre.all
     @makers = Maker.all
   end
