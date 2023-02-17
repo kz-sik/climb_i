@@ -1,8 +1,11 @@
 <div class="container">
   <div class="row">
-    <%= render 'public/users/sidebar', user: @sign_in_user %>
-    <div class="col-md-9">
-      <table>
+    <%= render 'public/users/sidebar', user: current_user %>
+    <div class="col-9">
+      <div class="h3 ml-3 my-3">
+        <%= @user.name %>さんの持ってる登録アイテム一覧<small>（<%= @user.bookmarks.count %>件）</small>
+      </div>
+      <table class="table table-striped table-bordered text-center ml-3">
         <thead>
           <tr>
             <th>画像</th>
@@ -15,15 +18,15 @@
         <tbody>
           <% @user.bookmarks.each do |bookmark| %>
             <tr>
-              <td>
+              <td class="align-middle p-2">
                 <%= link_to item_path(bookmark.item.id) do %>
-                  <%= image_tag bookmark.item.get_item_image(150,150) %>
+                  <%= image_tag bookmark.item.get_item_image(100, 100) %>
                 <% end %>
               </td>
-              <td><%= bookmark.item.name %></td>
-              <td><%= bookmark.item.maker.name %></td>
-              <td><%= bookmark.item.genre.name %></td>
-              <td><%= bookmark.item.tags.map(&:name).join(', ') %></td>
+              <td class="align-middle p-2"><%= bookmark.item.name %></td>
+              <td class="align-middle p-2"><%= bookmark.item.maker.name %></td>
+              <td class="align-middle p-2"><%= bookmark.item.genre.name %></td>
+              <td class="align-middle p-2"><%= bookmark.item.tags.map(&:name).join(', ') %></td>
             </tr>
           <% end %>
         </tbody>
