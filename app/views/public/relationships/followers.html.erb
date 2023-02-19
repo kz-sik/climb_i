@@ -1,7 +1,8 @@
 <div class="container">
   <div class="row">
-    <%= render 'public/users/sidebar', user: @user %>
-    <div class="col-md-9">
+    <%= render 'public/users/sidebar', user: current_user %>
+    <div class="col-9">
+      <div class="h3 ml-3 my-3"><%= @user.name%>のフォロワー一覧:<%= @users.count %>人</div>
       <%= render 'public/relationships/follow_list', users: @users %>
     </div>
   </div>
