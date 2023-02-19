@@ -5,7 +5,6 @@ class Public::UsersController < ApplicationController
   end
 
   def show
-    @login_user = current_user
     @user = User.find(params[:id])
   end
 

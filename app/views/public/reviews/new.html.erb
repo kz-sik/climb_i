@@ -1,14 +1,37 @@
 <div class="container">
   <div class="row">
-    <%= render 'public/users/sidebar', user: @user %>
-    <div class="col-md-9">
-      <h1>新規レビュー投稿</h1>
+    <%= render 'public/users/sidebar', user: current_user %>
+    <div class="col-9">
+      <div class="h3 ml-3 my-3">新規レビュー投稿</div>
+      <div class="h5 ml-3">アイテム情報</div>
+      <table class="table text-center ml-3">
+        <thead>
+          <tr>
+            <th>画像</th>
+            <th>商品名</th>
+            <th>メーカー</th>
+            <th>ジャンル</th>
+            <th>タグ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="align-middle p-2">
+              <%= image_tag @item.get_item_image(75, 75) %>
+            </td>
+            <td class="align-middle p-2"><%= @item.name %></td>
+            <td class="align-middle p-2"><%= @item.maker.name %></td>
+            <td class="align-middle p-2"><%= @item.genre.name %></td>
+            <td class="align-middle p-2"><%= @item.tags.map(&:name).join(', ') %></td>
+          </tr>
+        </tbody>
+      </table>
       <%= form_with model: @review, url: item_reviews_path, method: :post do |f| %>
         <% f.hidden_field :user_id, value: current_user.id %>
-        <table>
+        <table class="table">
           <tbody>
             <tr>
-              <th><%= f.label :star, "星評価" %></th>
+              <th class="text-center"><%= f.label :star, "星評価" %></th>
               <td><div id='post_raty'></div></td>
               <script>
                 var elem = document.getElementById('post_raty');
@@ -23,12 +46,11 @@
               </script>
             </tr>
             <tr>
-              <th><%= f.label :comment, "コメント" %></th>
+              <th class="text-center"><%= f.label :comment, "コメント" %></th>
               <td><%= f.text_area :comment %></td>
             </tr>
             <tr>
-              <th> </th>
-              <td><%= f.submit "投稿する", class: "btn btn-success" %></td>
+              <td colspan="2" class="text-center"><%= f.submit "投稿する", class: "btn btn-success" %></td>
             </tr>
           </tbody>
         </table>

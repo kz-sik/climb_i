@@ -1,9 +1,10 @@
 <div class="col-3" style="background-image: url(<%= asset_path('sidebar.jpg') %>); background-size: contain;">
   <% if user_signed_in? %>
-    <div class="text-center my-5" style="width: auto;"><%= image_tag user.get_profile_image(200,200) %></div>
-    <div class="text-center" style="width: auto;"><%= user.name %></div>
-    <div class="text-center" style="width: auto;"><%= user.sex %></div>
-    <div class="text-center" style="width: auto;"><%= user.height %>cm</div>
+    <div class="text-center mt-5 mb_1" style="width: auto;"><%= image_tag user.get_profile_image(200,200) %></div>
+    <div class="text-center h4" style="width: auto;"><%= user.name %></div>
+    <div class="text-center h5" style="width: auto;"><u>登録情報</u></div>
+    <div class="text-center h5" style="width: auto;">性別：<%= user.sex %></div>
+    <div class="text-center h5" style="width: auto;">身長：<%= user.height %>cm</div>
     <div class="d-flex justify-content-around my-3">
       <div>
         <%= link_to user_followings_path(user.id), class: "btn btn-info" do %>

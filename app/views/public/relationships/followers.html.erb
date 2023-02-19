@@ -2,7 +2,7 @@
   <div class="row">
     <%= render 'public/users/sidebar', user: current_user %>
     <div class="col-9">
-      <div class="h3 ml-3 my-3"><%= @user.name%>のフォロワー一覧:<%= @users.count %>人</div>
+      <div class="h3 ml-3 my-3"><%= @user.name%>のフォロワー一覧（<%= @users.count %>）</div>
       <%= render 'public/relationships/follow_list', users: @users %>
     </div>
   </div>

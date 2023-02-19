@@ -2,7 +2,7 @@ class Public::ReviewsController < ApplicationController
 
   def new
     @review = Review.new
-    @user = current_user
+    @item = Item.find(params[:item_id])
   end
 
   def create
