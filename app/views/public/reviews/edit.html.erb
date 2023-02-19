@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <%= render 'public/users/sidebar', user: @user %>
-    <div class="col-md-9">
+    <div class="col-9">
       <h1>レビュー編集</h1>
       <%= form_with model: @review, url: item_review_path(@review.item_id, @review.id), method: :patch do |f| %>
         <table>

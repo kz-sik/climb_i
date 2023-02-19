@@ -1,25 +1,34 @@
-<h1>メーカー追加・一覧</h1>
-
-<%= form_with model: @maker, url: makers_path, method: :post do |f| %>
-  <%= f.label :name, "メーカー名" %>
-  <%= f.text_field :name, placeholder: "メーカー名" %>
-  <%= f.submit "新規登録", class: "btn btn-success" %>
-<% end %>
-
-<table>
-  <thead>
-    <tr>
-      <th>メーカー名</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @makers.each do |maker| %>
-    <tr>
-      <td><%= maker.name %></td>
-      <td>
-        <%= link_to "編集する", edit_maker_path(maker.id), class: "btn btn-success" %>
-      </td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="container">
+  <div class="row">
+    <%= render 'public/users/sidebar', user: current_user %>
+    <div class="col-9">
+      <div class="h3 ml-3 my-3">メーカー名追加</div>
+        <%= form_with model: @maker, url: makers_path, method: :post do |f| %>
+          <div class="form_group ml-3">
+            <strong><%= f.label :name, "メーカー名" %></strong>
+            <%= f.text_field :name, placeholder: "メーカー名" %>
+            <%= f.submit "新規登録", class: "btn btn-success" %>
+          </div>
+        <% end %>
+      <div class="h3 ml-3 my-3">メーカー名一覧</div>
+      <table class="table ml-3">
+        <thead>
+          <tr>
+            <th>メーカー名</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @makers.each do |maker| %>
+          <tr>
+            <td><%= maker.name %></td>
+            <td>
+              <%= link_to "編集する", edit_maker_path(maker.id), class: "btn btn-success" %>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+      </div>
+    </div>
+  </div>
+</div>
