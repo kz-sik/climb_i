@@ -2,7 +2,15 @@
   <div class="row">
     <%= render 'public/users/sidebar', user: current_user %>
     <div class="col-9">
-      <div class="h3 ml-3 my-3">新規アイテム登録</div>
+      <div class="d-flex justify-content-between ml-3 my-3">
+        <div class="h3">新規アイテム登録</div>
+        <div>
+          <%= link_to "メーカー名新規登録", makers_path, class: "btn btn-info" %>
+        </div>
+        <div>
+          <%= link_to "ジャンル名新規登録", genres_path, class: "btn btn-info" %>
+        </div>
+      </div>
       <%= form_with model: @item,url: items_path, method: :post do |f| %>
       <table class="table">
         <tbody>
