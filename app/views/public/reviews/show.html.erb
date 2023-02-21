@@ -1,52 +1,47 @@
 <div class="container">
   <div class="row">
-    <%= render 'public/users/sidebar', user: @user %>
+    <%= render 'public/users/sidebar', user: current_user %>
     <div class="col-9">
-      <h1>アイテム情報</h1>
-      <%= image_tag @item.get_item_image(300,300) %>
-      <table>
+      <div class="h5 ml-3">アイテム情報</div>
+      <table class="table text-center ml-3">
+        <thead>
+          <tr>
+            <th>画像</th>
+            <th>商品名</th>
+            <th>メーカー</th>
+            <th>ジャンル</th>
+            <th>タグ</th>
+          </tr>
+        </thead>
         <tbody>
           <tr>
-            <td><%= @item.name %></td>
-          </tr>
-          <tr>
-            <td><%= @item.maker.name %></td>
-            <td><%= @item.genre.name %></td>
-          </tr>
-          <tr>
-            <td><%= @item.tags.map(&:name).join(', ') %></td>
-          </tr>
-          <tr>
-            <td>
-              <% if @item.bookmarked_by?(current_user) %>
-                <%= link_to "持ってる", item_bookmarks_path(@item), method: :delete, class: "btn btn-info" %>
-              <% else %>
-                <%= link_to "持っていない", item_bookmarks_path(@item), method: :post, class: "btn btn-warning" %>
-              <% end %>
+            <td class="align-middle p-2">
+              <%= image_tag @item.get_item_image(75, 75) %>
             </td>
-          </tr>
-          <tr>
-            <td><%= @item.introduction %></td>
+            <td class="align-middle p-2"><%= @item.name %></td>
+            <td class="align-middle p-2"><%= @item.maker.name %></td>
+            <td class="align-middle p-2"><%= @item.genre.name %></td>
+            <td class="align-middle p-2"><%= @item.tags.map(&:name).join(', ') %></td>
           </tr>
         </tbody>
       </table>
-      <h1>レビュー詳細</h1>
-      <table>
+      <div class="h3 ml-3 my-3">レビュー詳細</div>
+      <table class="table ml-3">
         <tbody>
             <tr>
               <td><%= image_tag @review.user.get_profile_image(100,100) %></td>
-              <td><%= @review.user.name %></td>
+              <td class="align-middle"><%= @review.user.name %></td>
               <% if @review.user == current_user %>
-                <td>
+                <td class="align-middle">
                   <%= link_to "編集", edit_item_review_path(@review.item_id, @review.id), class: "btn btn-warning" %>
                 </td>
-                <td>
+                <td class="align-middle">
                   <%= link_to "削除", item_review_path(@review.item_id, @review.id), method: :delete, data: {confirm: '削除してもいいですか？'}, class: "btn btn-danger" %>
                 </td>
               <% end %>
             </tr>
             <tr>
-              <td id='post_raty_<%= @review.id %>'></td>
+              <td colspan="4" id='post_raty_<%= @review.id %>'></td>
                 <script>
                   var elem = document.getElementById('post_raty_<%= @review.id %>');
                   var opt = {
@@ -60,7 +55,9 @@
                    };
                   raty(elem,opt);
                 </script>
-              <td><%= @review.comment %></td>
+            </tr>
+            <tr>
+              <td colspan="4"><%= @review.comment %></td>
             </tr>
         </tbody>
       </table>
