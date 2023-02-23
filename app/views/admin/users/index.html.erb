@@ -1,29 +1,35 @@
-<h4><span class="title">ユーザー一覧</span></h4>
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <th>ユーザーID</th>
-      <th>プロフィール画像</th>
-      <th>氏名</th>
-      <th>メールアドレス</th>
-      <th>ステータス</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @users.each do |user| %>
-    <tr>
-      <td><%= user.id %></td>
-      <td><%= image_tag user.get_profile_image(100, 100) %></td>
-      <td><%= link_to user.name, admin_user_path(user.id) %></td>
-      <td><%= user.email %></td>
-      <td>
-        <% if user.is_deleted %>
-          <div>退会</div>
-        <% else %>
-          <div>有効</div>
-        <% end %>
-      </td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <div class="h3 ml-3 my-3">ユーザー一覧</div>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>ユーザーID</th>
+            <th>プロフィール画像</th>
+            <th>氏名</th>
+            <th>メールアドレス</th>
+            <th>ステータス</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @users.each do |user| %>
+          <tr>
+            <td><%= user.id %></td>
+            <td><%= image_tag user.get_profile_image(100, 100) %></td>
+            <td><%= link_to user.name, admin_user_path(user.id) %></td>
+            <td><%= user.email %></td>
+            <td>
+              <% if user.is_deleted %>
+                <div>退会</div>
+              <% else %>
+                <div>有効</div>
+              <% end %>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

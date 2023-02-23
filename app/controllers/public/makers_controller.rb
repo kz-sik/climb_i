@@ -1,4 +1,6 @@
 class Public::MakersController < ApplicationController
+  before_action :authenticate_user!
+  
   def index
     @maker = Maker.new
     @makers = Maker.all
