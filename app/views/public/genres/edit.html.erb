@@ -3,6 +3,16 @@
     <%= render 'public/users/sidebar', user: current_user %>
     <div class="col-9">
       <div class="h3 ml-3 my-3">ジャンル編集</div>
+      <div class="ml-3">
+        <% if @genre.errors.any? %>
+          <%= @genre.errors.count %>件のエラーが発生しました
+          <ul>
+            <% @genre.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        <% end %>
+      </div>
       <%= form_with model: @genre, url: genre_path(@genre.id),method: :patch do |f| %>
       <table class="table ml-3">
         <tbody>

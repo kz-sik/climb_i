@@ -11,6 +11,16 @@
           <%= link_to "ジャンル名新規登録", genres_path, class: "btn btn-info" %>
         </div>
       </div>
+      <div class="ml-3">
+        <% if @item.errors.any? %>
+          <%= @item.errors.count %>件のエラーが発生しました
+          <ul>
+            <% @item.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        <% end %>
+      </div>
       <%= form_with model: @item,url: items_path, method: :post do |f| %>
       <table class="table">
         <tbody>

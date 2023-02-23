@@ -26,6 +26,16 @@
           </tr>
         </tbody>
       </table>
+      <div class="ml-3">
+        <% if @review.errors.any? %>
+          <%= @review.errors.count %>件のエラーが発生しました
+          <ul>
+            <% @review.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        <% end %>
+      </div>
       <%= form_with model: @review, url: item_reviews_path, method: :post do |f| %>
         <% f.hidden_field :user_id, value: current_user.id %>
         <table class="table">

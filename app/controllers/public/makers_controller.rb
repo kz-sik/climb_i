@@ -1,6 +1,6 @@
 class Public::MakersController < ApplicationController
   before_action :authenticate_user!
-  
+
   def index
     @maker = Maker.new
     @makers = Maker.all
@@ -8,8 +8,12 @@ class Public::MakersController < ApplicationController
 
   def create
     @maker = Maker.new(maker_params)
-    @maker.save
-    redirect_to makers_path
+    if @maker.save
+      redirect_to makers_path
+    else
+      @makers = Maker.all
+      render :index
+    end
   end
 
   def edit
@@ -18,8 +22,11 @@ class Public::MakersController < ApplicationController
 
   def update
     @maker = Maker.find(params[:id])
-    @maker.update(maker_params)
-    redirect_to makers_path
+    if @maker.update(maker_params)
+      redirect_to makers_path
+    else
+      render :edit
+    end
   end
 
   private

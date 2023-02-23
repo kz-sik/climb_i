@@ -1,6 +1,10 @@
 class Item < ApplicationRecord
   has_one_attached :image
 
+  validates :name, presence: true
+  validates :introduction, presence: true
+  validates :image, presence: true
+
   has_many :itemtags, dependent: :destroy
   has_many :tags, through: :itemtags # tag_ids
   has_many :reviews, dependent: :destroy

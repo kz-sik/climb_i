@@ -3,6 +3,16 @@
     <%= render 'public/users/sidebar', user: current_user %>
     <div class="col-9">
       <div class="h3 ml-3 my-3">メーカー名編集</div>
+      <div class="ml-3">
+        <% if @maker.errors.any? %>
+          <%= @maker.errors.count %>件のエラーが発生しました
+          <ul>
+            <% @maker.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        <% end %>
+      </div>
       <%= form_with model: @maker, url: maker_path, method: :patch do |f| %>
       <table class="table ml-3">
         <tbody>
