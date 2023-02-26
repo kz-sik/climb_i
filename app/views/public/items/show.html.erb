@@ -2,6 +2,11 @@
   <div class="row">
     <%= render 'public/users/sidebar', user: @user %>
     <div class="col-9">
+      <% if flash[:notice] %>
+        <div class="p-2 alert alert-success">
+          <%= flash[:notice] %>
+        </div>
+      <% end %>
       <div class="h3 ml-3 my-3">アイテム詳細</div>
       <div class="row">
         <div class="col-5">

@@ -13,11 +13,13 @@ class Public::ItemsController < ApplicationController
   def create
     @item = Item.new(item_params)
     if @item.save
+      flash[:notice] = "アイテムの投稿が成功しました。"
       redirect_to item_path(@item)
     else
       @user = current_user
       @genres = Genre.all
       @makers = Maker.all
+      flash[:notice] = "アイテムの投稿に失敗しました。投稿内容を確認してください。"
       render :new
     end
   end
@@ -41,10 +43,12 @@ class Public::ItemsController < ApplicationController
   def update
     @item = Item.find(params[:id])
     if @item.update(item_params)
+      flash[:notice] = "アイテムの更新に成功しました。"
       redirect_to item_path(@item)
     else
       @genres = Genre.all
       @makers = Maker.all
+      flash[:notice] = "アイテムの更新に失敗しました。投稿内容を確認してください。"
       render :edit
     end
   end

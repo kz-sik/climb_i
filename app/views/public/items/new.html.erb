@@ -2,6 +2,11 @@
   <div class="row">
     <%= render 'public/users/sidebar', user: current_user %>
     <div class="col-9">
+      <% if flash[:notice] %>
+        <div class="p-2 alert alert-warning">
+          <%= flash[:notice] %>
+        </div>
+      <% end %>
       <div class="d-flex justify-content-between ml-3 my-3">
         <div class="h3">新規アイテム登録</div>
         <div>
