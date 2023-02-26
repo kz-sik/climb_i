@@ -9,9 +9,11 @@ class Public::MakersController < ApplicationController
   def create
     @maker = Maker.new(maker_params)
     if @maker.save
+      flash[:notice] = "メーカー名の追加に成功しました。"
       redirect_to makers_path
     else
       @makers = Maker.all
+      flash[:notice] = "メーカー名の追加に失敗しました。内容を確認してください。"
       render :index
     end
   end
@@ -23,8 +25,10 @@ class Public::MakersController < ApplicationController
   def update
     @maker = Maker.find(params[:id])
     if @maker.update(maker_params)
+      flash[:notice] = "メーカー名の編集に成功しました。"
       redirect_to makers_path
     else
+      flash[:notice] = "メーカー名の編集に失敗しました。内容を確認してください。"
       render :edit
     end
   end
