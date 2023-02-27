@@ -11,8 +11,10 @@ class Public::ReviewsController < ApplicationController
     @review = current_user.reviews.new(review_params)
     @review.item_id = @item.id
     if @review.save
+      flash[:notice] = "レビューの投稿に成功しました。"
       redirect_to item_review_path(@item.id, @review.id)
     else
+      flash[:notice] = "レビューの投稿に失敗しました。内容を確認してください。"
       render :new
     end
   end
@@ -29,8 +31,10 @@ class Public::ReviewsController < ApplicationController
   def update
     @review = Review.find(params[:id])
     if @review.update(review_params)
+      flash[:notice] = "レビューの編集に成功しました。"
       redirect_to item_review_path(@review.item_id, @review.id)
     else
+      flash[:notice] = "レビューの編集に失敗しました。内容を確認してください。"
       render :edit
     end
   end
