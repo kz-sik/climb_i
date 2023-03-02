@@ -3,7 +3,6 @@
     <%= render 'public/users/sidebar', user: current_user %>
     <div class="col-9">
       <div class="h3 ml-3 my-3">ユーザー詳細</div>
-
       <div class="row">
         <div class="col-5">
           <%= image_tag @user.get_profile_image(300, 300) %>
@@ -37,6 +36,37 @@
             <% end %>
           </div>
         </div>
+      </div>
+      <div class="h3 ml-3 my-3"><%= @user.name %>さんの投稿レビュー一覧</div>
+      <div class="ml-3 my-3">
+        <% @reviews.each do |review| %>
+          <div class="d-flex justify-content-between">
+            <div class="d-flex align-items-center">
+              <%= image_tag review.item.get_item_image(50, 50) %>
+            </div>
+            <div class="d-flex align-items-center"><%= review.item.name %></div>
+            <div class="d-flex align-items-center"><%= review.item.maker.name %></div>
+            <div class="d-flex align-items-center"><%= review.item.genre.name %></div>
+            <div class="d-flex align-items-center"><%= review.item.tags.map(&:name).join(', ') %></div>
+          </div>
+          <div class="my-2" id='post_raty_<%= review.id %>'>星評価<br></div>
+            <script>
+              var elem = document.getElementById('post_raty_<%= review.id %>');
+              var opt = {
+                size : 36,
+                starOff: '<%= asset_path('star-off.png') %>',
+                starOn : '<%= asset_path('star-on.png') %>',
+                starHalf: '<%= asset_path('star-half.png') %>',
+                score: <%= review.star %>,
+                readOnly: true,
+                half: true,
+               };
+              raty(elem,opt);
+            </script>
+          <div class="mb-3 border border-3" >
+            コメント<br><%= review.comment %>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>
