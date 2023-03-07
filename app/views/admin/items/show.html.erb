@@ -1,64 +1,65 @@
-<h1>アイテム詳細</h1>
-<%= image_tag @item.get_item_image(300,300) %>
-<table>
-  <tbody>
-    <tr>
-      <td><%= @item.name %></td>
-    </tr>
-    <tr>
-      <td><%= @item.maker.name %></td>
-      <td><%= @item.genre.name %></td>
-    </tr>
-    <tr>
-      <td>
-        <% @item.tags.each do |tag| %>
-          <%= tag.name %>
+<div class="container">
+  <div class="row">
+    <div class="col-12 h3">アイテム詳細</div>
+    <div class="col-6"><%= image_tag @item.get_item_image(300,300) %></div>
+    <table class="col-6">
+      <tbody>
+        <tr>
+          <td><%= @item.name %></td>
+        </tr>
+        <tr>
+          <td><%= @item.maker.name %></td>
+          <td><%= @item.genre.name %></td>
+        </tr>
+        <tr>
+          <td>
+            <% @item.tags.each do |tag| %>
+              <%= tag.name %>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <td><%= @item.introduction %></td>
+        </tr>
+        <tr>
+          <td>
+            <%= link_to "編集する", edit_admin_item_path(@item), class: "btn btn-success" %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="col-12 h4">レビュー一覧</div>
+      <div class="col-12">
+        <% @item.reviews.each do |review| %>
+          <div class="d-flex flex-row border-top">
+            <div>
+              <%= link_to admin_user_path(review.user_id) do %>
+                <%= image_tag review.user.get_profile_image(100, 100) %>
+              <% end %>
+            </div>
+            <div class="d-flex align-items-center mx-3 h5">
+              <%= link_to admin_user_path(review.user_id) do %>
+               <%= review.user.name %>
+              <% end %>
+            </div>
+          </div>
+          <div class="my-2" id='post_raty_<%= review.id %>'></div>
+            <script>
+              var elem = document.getElementById('post_raty_<%= review.id %>');
+              var opt = {
+                size : 36,
+                starOff: '<%= asset_path('star-off.png') %>',
+                starOn : '<%= asset_path('star-on.png') %>',
+                starHalf: '<%= asset_path('star-half.png') %>',
+                score: <%= review.star %>,
+                readOnly: true,
+                half: true,
+               };
+              raty(elem,opt);
+            </script>
+          <div class="mb-3"><%= review.comment %></div>
+          <div><%= link_to "削除", admin_item_review_path(review.item.id, review.id), method: :delete, data: {confirm: '削除してもいいですか？'}, class: "btn btn-danger" %></div>
         <% end %>
-      </td>
-    </tr>
-    <tr>
-      <td><%= @item.introduction %></td>
-    </tr>
-    <tr>
-      <td>
-        <%= link_to "編集する", edit_admin_item_path(@item), class: "btn btn-success" %>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-<h2>レビュー一覧</h2>
-<table>
-  <tbody>
-    <% @item.reviews.each do |review| %>
-      <tr>
-        <td>
-          <%= link_to item_review_path(review.item_id, review.id) do %>
-            <%= image_tag review.user.get_profile_image(100,100) %>
-          <% end %>
-        </td>
-        <td><%= review.user.name %></td>
-        <td>
-          <%= link_to "削除", admin_item_review_path(review.item.id, review.id), method: :delete, data: {confirm: '削除してもいいですか？'}, class: "btn btn-danger" %>
-        </td>
-      </tr>
-      <tr>
-        <td id='post_raty_<%= review.id %>'></td>
-          <script>
-            var elem = document.getElementById('post_raty_<%= review.id %>');
-            var opt = {
-              size : 36,
-              starOff: '<%= asset_path('star-off.png') %>',
-              starOn : '<%= asset_path('star-on.png') %>',
-              starHalf: '<%= asset_path('star-half.png') %>',
-              score: <%= review.star %>,
-              readOnly: true,
-              half: true,
-             };
-            raty(elem,opt);
-          </script>
-        <td><%= review.comment %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+      </div>
+  </div>
+</div>

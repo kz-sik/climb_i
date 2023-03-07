@@ -1,7 +1,7 @@
 <h1>アイテム編集</h1>
-<table>
-  <tbody>
-    <%= form_with model: @item, url: admin_item_path, method: :patch do |f| %>
+<%= form_with model: @item, url: admin_item_path, method: :patch do |f| %>
+  <table>
+    <tbody>
       <tr>
         <td><%= f.label :name, "アイテム名" %></td>
         <td><%= f.text_field :name %></td>
@@ -43,6 +43,6 @@
           <%= f.submit "登録する", class: "btn btn-success" %>
         </td>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </tbody>
+  </table>
+<% end %>
