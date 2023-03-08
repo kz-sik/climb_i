@@ -2,6 +2,11 @@
   <div class="row">
     <%= render 'public/users/sidebar', user: @user %>
     <div class="col-9">
+      <% if flash[:notice] %>
+        <div class="p-2 alert alert-success">
+          <%= flash[:notice] %>
+        </div>
+      <% end %>
       <h1>新着投稿アイテム</h1>
       <div>
         <% @items.each do |item| %>

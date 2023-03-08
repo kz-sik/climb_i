@@ -65,7 +65,8 @@
                 score: <%= review.star %>,
                 readOnly: true,
                 half: true,
-               };
+              };
+              elem.innerHTML = '';
               raty(elem,opt);
             </script>
           <div class="mb-3"><%= review.comment %></div>
