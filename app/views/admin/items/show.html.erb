@@ -1,34 +1,24 @@
 <div class="container">
   <div class="row">
-    <div class="col-12 h3">アイテム詳細</div>
+    <div class="col-12 h3 my-3">アイテム詳細</div>
     <div class="col-6"><%= image_tag @item.get_item_image(300,300) %></div>
-    <table class="col-6">
-      <tbody>
-        <tr>
-          <td><%= @item.name %></td>
-        </tr>
-        <tr>
-          <td><%= @item.maker.name %></td>
-          <td><%= @item.genre.name %></td>
-        </tr>
-        <tr>
-          <td>
-            <% @item.tags.each do |tag| %>
-              <%= tag.name %>
-            <% end %>
-          </td>
-        </tr>
-        <tr>
-          <td><%= @item.introduction %></td>
-        </tr>
-        <tr>
-          <td>
-            <%= link_to "編集する", edit_admin_item_path(@item), class: "btn btn-success" %>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="col-12 h4">レビュー一覧</div>
+    <div class="col-6">
+      <div class="h4"><%= @item.name %></div>
+      <div class="h5">メーカー:<%= @item.maker.name %></div>
+      <div class="h5">ジャンル:<%= @item.genre.name %></div>
+      <div class="h6">
+        タグ:
+        <% @item.tags.each do |tag| %>
+          <%= tag.name %>
+        <% end %>
+      </div>
+      <div class="mt-3">
+        <div class="h5">商品情報</div>
+        <%= @item.introduction %>
+      </div>
+      <div class="mt-3"><%= link_to "編集する", edit_admin_item_path(@item), class: "btn btn-success" %></div>
+    </div>
+    <div class="col-12 h4 mt-3">レビュー一覧</div>
       <div class="col-12">
         <% @item.reviews.each do |review| %>
           <div class="d-flex flex-row border-top">
@@ -54,7 +44,8 @@
                 score: <%= review.star %>,
                 readOnly: true,
                 half: true,
-               };
+              };
+              elem.innerHTML = '';
               raty(elem,opt);
             </script>
           <div class="mb-3"><%= review.comment %></div>

@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-5">
-      <div class="h3 ml-3 my-3"><%= @user.name %>さんの会員詳細</div>
+      <div class="h3 my-3"><%= @user.name %>さんの会員詳細</div>
       <table class="table table-bordered">
         <tbody>
           <tr>
@@ -43,5 +43,40 @@
         </tbody>
       </table>
     </div>
+    <div class="col-7">
+      <div class="h3 my-3"><%= @user.name %>さんのレビュー一覧</div>
+      <div>
+        <% @user.reviews.each do |review| %>
+          <div class="d-flex flex-row border-top">
+            <div>
+              <%= link_to admin_item_path(review.item_id) do %>
+                <%= image_tag review.item.get_item_image(100, 100) %>
+              <% end %>
+            </div>
+            <div class="d-flex align-items-center mx-3 h5">
+              <%= link_to admin_item_path(review.item_id) do %>
+               <%= review.item.name %>
+              <% end %>
+            </div>
+            <div class="d-flex align-items-center ml-2" id='post_raty_<%= review.id %>'></div>
+              <script>
+                var elem = document.getElementById('post_raty_<%= review.id %>');
+                var opt = {
+                  size : 36,
+                  starOff: '<%= asset_path('star-off.png') %>',
+                  starOn : '<%= asset_path('star-on.png') %>',
+                  starHalf: '<%= asset_path('star-half.png') %>',
+                  score: <%= review.star %>,
+                  readOnly: true,
+                  half: true,
+                };
+                elem.innerHTML = '';
+                raty(elem,opt);
+              </script>
+          </div>
+          <div class"mt-3"><%= review.comment %></div>
+          <div class="my-3"><%= link_to "削除", admin_item_review_path(review.item.id, review.id), method: :delete, data: {confirm: '削除してもいいですか？'}, class: "btn btn-danger" %></div>
+        <% end %>
+      </div>
+    </div>
   </div>
-</div>
