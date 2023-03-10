@@ -1,7 +1,9 @@
 <div class="col-3" style="background-image: url(<%= asset_path('sidebar.jpg') %>); background-size: contain;">
   <% if user_signed_in? %>
-    <div class="text-center mt-5 mb_1" style="width: auto;"><%= image_tag user.get_profile_image(200,200) %></div>
-    <div class="text-center h4" style="width: auto;"><%= user.name %></div>
+    <%= link_to users_my_page_path do %>
+      <div class="text-center mt-5 mb_1" style="width: auto;"><%= image_tag user.get_profile_image(200,200) %></div>
+      <div class="text-center h4" style="width: auto;"><%= user.name %></div>
+    <% end %>
     <div class="text-center h5" style="width: auto;"><u>登録情報</u></div>
     <div class="text-center h5" style="width: auto;">性別：<%= user.sex %></div>
     <div class="text-center h5" style="width: auto;">身長：<%= user.height %>cm</div>

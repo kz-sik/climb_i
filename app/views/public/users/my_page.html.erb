@@ -1,13 +1,28 @@
 <div class="container">
   <div class="row">
-    <%= render 'public/users/sidebar', user: @user %>
+    <%= render 'public/users/sidebar', user: current_user %>
     <div class="col-md-9">
-      <h1>マイページ</h1>
-      <h1>フォローユーザーの新着レビュー一覧</h1>
-      <table>
-        <tbody>
-        </tbody>
-      </table>
+      <div class="h3 ml-3 my-3">マイページ</div>
+      <div class="h4 ml-3 my-3">新着フォロワー一覧</div>
+      <div class="ml-3">
+        <% @followers.each do |follower| %>
+          <%= link_to user_path(follower.id) do %>
+            <%= image_tag follower.get_profile_image(75, 75) %>
+          <% end %>
+          <%= follower.name %>
+        <% end %>
+      </div>
+      <div class="ml-3 my-1"><%= link_to "全てのフォロワーをみる＞＞", user_followers_path(current_user.id) %></div>
+      <div class="h4 ml-3 my-3">新着フォロー一覧</div>
+      <div class="ml-3">
+        <% @followings.each do |following| %>
+          <%= link_to user_path(following.id) do %>
+            <%= image_tag following.get_profile_image(75, 75) %>
+          <% end %>
+          <%= following.name %>
+        <% end %>
+      </div>
+      <div class="ml-3 my-1"><%= link_to "全てのフォローをみる＞＞", user_followings_path(current_user.id) %></div>
     </div>
   </div>
 </div>

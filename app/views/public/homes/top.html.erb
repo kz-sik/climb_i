@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <%= render 'public/users/sidebar', user: @user %>
+    <%= render 'public/users/sidebar', user: current_user %>
     <div class="col-9">
       <% if flash[:notice] %>
         <div class="p-2 alert alert-success">

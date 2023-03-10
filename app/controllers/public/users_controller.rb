@@ -11,7 +11,8 @@ class Public::UsersController < ApplicationController
   end
 
   def my_page
-    @user = current_user
+    @followers = current_user.followers.order('id DESC').limit(4)
+    @followings = current_user.followings.order('id DESC').limit(4)
   end
 
   def edit
