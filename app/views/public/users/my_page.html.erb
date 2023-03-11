@@ -7,7 +7,7 @@
       <div class="ml-3">
         <% @followers.each do |follower| %>
           <%= link_to user_path(follower.id) do %>
-            <%= image_tag follower.get_profile_image(75, 75) %>
+            <%= image_tag follower.get_profile_image(100, 100) %>
           <% end %>
           <%= follower.name %>
         <% end %>
@@ -17,7 +17,7 @@
       <div class="ml-3">
         <% @followings.each do |following| %>
           <%= link_to user_path(following.id) do %>
-            <%= image_tag following.get_profile_image(75, 75) %>
+            <%= image_tag following.get_profile_image(100, 100) %>
           <% end %>
           <%= following.name %>
         <% end %>

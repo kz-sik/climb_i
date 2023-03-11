@@ -14,7 +14,11 @@
     <header class="shadow-sm">
       <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
-          <a class="navbar-brand p-3" href="/"><%= image_tag ('logo.png'), :size =>'280x120' %></a>
+          <% if admin_signed_in? %>
+            <a class="navbar-brand p-3" href="/admin"><%= image_tag ('logo.png'), :size =>'280x120' %></a>
+          <% else %>
+            <a class="navbar-brand p-3" href="/"><%= image_tag ('logo.png'), :size =>'280x120' %></a>
+          <% end %>
           <div class="form-inline my-2 my-lg-0">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
                           aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,7 +47,7 @@
                     <%= link_to "商品一覧", admin_items_path, class: 'nav-link text-dark' %>
                   </li>
                   <li class="nav-item">
-                    <%= link_to 'ユーザー一覧', admin_users_path, class: 'nav-link text-dark' %>
+                    <%= link_to 'ユーザー一覧', admin_path, class: 'nav-link text-dark' %>
                   </li>
                   <li class="nav-item">
                     <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: 'nav-link text-dark' %>
