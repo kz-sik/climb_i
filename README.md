@@ -29,7 +29,8 @@
 - クライミングジム側が品揃えを考えるとき
 
 ## 設計書
-<...>
+- ER図
+  https://app.diagrams.net/#G15TLKVcmQk3-sRBUetOCFDhGywrzrE0p_
 
 ## 開発環境
 - OS：Linux(CentOS)
@@ -39,4 +40,5 @@
 - IDE：Cloud9
 
 ## 使用素材
-- 仕様検討中です。
+- Design Evo
+  https://www.designevo.com/privacy.html
