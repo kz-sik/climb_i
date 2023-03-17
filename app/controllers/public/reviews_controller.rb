@@ -10,9 +10,15 @@ class Public::ReviewsController < ApplicationController
     @item = Item.find(params[:item_id])
     @review = current_user.reviews.new(review_params)
     @review.item_id = @item.id
-    if @review.save
-      flash[:notice] = "レビューの投稿に成功しました。"
-      redirect_to item_review_path(@item.id, @review.id)
+    review_count = Review.where(item_id: params[:item_id]).where(user_id: current_user.id).count
+    if @review.valid?
+      # バリデーションエラーが無い、且つレビューを一度もしたことない場合
+      if review_count < 1
+        @review.save
+        redirect_to item_review_path(@item.id, @review.id), notice: "レビューの投稿に成功しました。"
+      else
+        redirect_to item_path(@item.id), notice: "レビューの投稿は一度までです"
+      end
     else
       flash[:notice] = "レビューの投稿に失敗しました。内容を確認してください。"
       render :new
