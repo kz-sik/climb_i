@@ -13,6 +13,7 @@ class Public::UsersController < ApplicationController
   def my_page
     @followers = current_user.followers.order('id DESC').limit(4)
     @followings = current_user.followings.order('id DESC').limit(4)
+    @reviews = Review.where(user_id: [*current_user.following_ids])
   end
 
   def edit
