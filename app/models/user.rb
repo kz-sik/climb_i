@@ -38,7 +38,7 @@ class User < ApplicationRecord
     image.variant(resize_to_limit: [width, height]).processed
   end
 
-  def self.looks(word)
-    @user = User.where("name LIKE?","%#{word}%")
+  def self.partial_match(word)
+    where("name LIKE?","%#{word}%")
   end
 end

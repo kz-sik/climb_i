@@ -33,8 +33,8 @@ class Item < ApplicationRecord
     bookmarks.where(user_id: user).exists?
   end
 
-  def self.looks(word)
-    @item = Item.where("name LIKE?","%#{word}%")
+  def self.partial_match(word)
+    where("name LIKE?","%#{word}%")
   end
 
   private

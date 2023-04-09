@@ -6,9 +6,9 @@ class Public::SearchesController < ApplicationController
     @range = params[:range]
 
     if @range == "User"
-      @users = User.looks(params[:word])
+      @users = User.partial_match(params[:word])
     else
-      @items = Item.looks(params[:word])
+      @items = Item.partial_match(params[:word])
     end
     render "/public/searches/search_result"
 
