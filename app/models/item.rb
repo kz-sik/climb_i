@@ -20,6 +20,7 @@ class Item < ApplicationRecord
 
   attribute :tag_names, :string, default: ""
 
+  #
   def get_item_image(width, height)
     unless image.attached?
       file_path = Rails.root.join('app/assets/images/no_item_image.png')
