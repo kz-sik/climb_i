@@ -1,4 +1,5 @@
 class Public::ItemsController < ApplicationController
+  #ユーザがログインしているかどうかを確認し、ログインしていない場合はユーザをログインページにリダイレクトする。ただしindex,show以外。（deviseのメソッド）
   before_action :authenticate_user!, except: [:index, :show]
 
   def new
@@ -25,6 +26,7 @@ class Public::ItemsController < ApplicationController
   end
 
   def index
+    #tag_idが存在していればTagから関連づけられたitemsを呼び、tag_idの指定がなければ全てのアイテム投稿を表示する
     @items = params[:tag_id].present? ? Tag.find(params[:tag_id]).items : Item.all
   end
 

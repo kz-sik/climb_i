@@ -7,8 +7,10 @@
         <span>
           <%= link_to "新規アイテム投稿", new_item_path, class: "btn btn-primary" %>
         </span>
+        <%# タグ検索ボックスの生成 %>
         <span>
           <%= form_tag items_path, method: :get, class: 'boards__searchForm' do %>
+            <%# options_from_collection_for_select( コレクション, [optionタグのvalueとなる値], [選択肢のテキスト], コントローラーからViewに渡っている変数) %>
             <%= select_tag :tag_id,
                            options_from_collection_for_select(Tag.all, :id, :name, params[:tag_id]),
                            {
