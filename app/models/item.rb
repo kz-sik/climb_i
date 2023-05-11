@@ -12,15 +12,19 @@ class Item < ApplicationRecord
   belongs_to :maker
   belongs_to :genre
 
+  #親モデルを保存するときに、Associationで関連づけた子モデルも一緒に保存する
   accepts_nested_attributes_for :tags
   accepts_nested_attributes_for :reviews, allow_destroy: true
 
+  #validation前に実行するメソッドの指定
   before_validation :validate_tag
+  #save後に実行するメソッドの指定
   after_save :create_tag
 
+  #型を持つ属性をこのモデルに定義
   attribute :tag_names, :string, default: ""
 
-  #
+  #画像が存在していない場合の表示画像の指定と画像のサイズ変更
   def get_item_image(width, height)
     unless image.attached?
       file_path = Rails.root.join('app/assets/images/no_item_image.png')
@@ -33,7 +37,8 @@ class Item < ApplicationRecord
   def bookmarked_by?(user)
     bookmarks.where(user_id: user).exists?
   end
-
+  
+  #部分検索メソッド
   def self.partial_match(word)
     where("name LIKE?","%#{word}%")
   end
