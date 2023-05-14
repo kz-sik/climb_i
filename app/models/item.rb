@@ -46,12 +46,12 @@ class Item < ApplicationRecord
   private
 
   def validate_tag
-    tag_names = self.tag_names.split(",")
+    tag_names = self.tag_names.split(",") # tag_namesを分割し配列にする
     tag_names.each do |tag_name|
       tag = Tag.new(name: tag_name)
-      if tag.invalid?
-        self.errors.add(:tag_name, "タグが不正です")
-        break
+      if tag.invalid? # エラーがある場合true
+        self.errors.add(:tag_name, "タグが不正です") # エラーメッセージの追加
+        break # エラーがあった時点でeachを抜ける為
       end
     end
   end
@@ -66,8 +66,8 @@ class Item < ApplicationRecord
 
     new_tags = self.tag_names.split(",") - current_tags
     new_tags.each do |new_tag|
-      new_post_tag = Tag.find_or_create_by(name: new_tag)
-      self.tags << new_post_tag
+      new_post_tag = Tag.find_or_create_by(name: new_tag) # new_tagが存在しなければ新規作成し保存
+      self.tags << new_post_tag # self.tagsにnew_post_tagを追加する
     end
   end
 end
